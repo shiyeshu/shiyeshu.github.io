@@ -17,7 +17,7 @@
   
   <meta property="og:type" content="website">
 <meta property="og:title" content="松鼠A的博客">
-<meta property="og:url" content="http://shiyeshu.github.io/index.html">
+<meta property="og:url" content="http://shiyeshu.github.io/search/index.html">
 <meta property="og:site_name" content="松鼠A的博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://shiyeshu.github.io/images/logo.ico">
@@ -133,120 +133,36 @@
                     
 
         <section class="col-md-8">
-    
-        
-        
-            <article class="kratos-hentry clearfix">
-                <div class="kratos-entry-border-new clearfix">
-                    
-                    <div class="kratos-entry-thumb-new">
-                        <a href="/2021/04/06/%E6%9D%BE%E9%BC%A0A%E7%9A%84%E5%8D%9A%E5%AE%A2/">
-                            
-                                <img class="kratos-entry-thumb-new-img">
-                            
-                        </a>
-                    </div>
-                    <div class="kratos-post-inner-new">
-                        <header class="kratos-entry-header-new">
-                                
-                            <h2 class="kratos-entry-title-new"><a href="/2021/04/06/%E6%9D%BE%E9%BC%A0A%E7%9A%84%E5%8D%9A%E5%AE%A2/">松鼠A的博客</a>
-                        </header>
-                        <div class="kratos-entry-content-new">
-                            <p>
-                                
-                                    
-                                
-                            </p>
-                        </div>
-                    </div>
-                    <footer class="kratos-post-meta-new">
-                        <span class="pull-left">
-                            <a>
-                                <i class="fa fa-calendar"></i>
-                                2021-04-06
-                            </a>
-                            <a>
-                                
-                            </a>
-                            
-                                <!-- 当前仅支持valine/waline自带的统计功能 -->
-                                
-                            
-                            
-                                <!-- 当前仅支持waline自带的统计功能 -->
-                                
-                            
-                        </span>
-                        <span class="pull-right">
-                            <a class="read-more" href="/2021/04/06/%E6%9D%BE%E9%BC%A0A%E7%9A%84%E5%8D%9A%E5%AE%A2/" title="阅读全文">阅读全文<i class="fa fa-chevron-circle-right"></i></a>
-                        </span>
-                    </footer>
-                </div>
-            </article>
-        
-    
-        
-        
-            <article class="kratos-hentry clearfix">
-                <div class="kratos-entry-border-new clearfix">
-                    
-                    <div class="kratos-entry-thumb-new">
-                        <a href="/2021/04/06/hello-world/">
-                            
-                                <img class="kratos-entry-thumb-new-img">
-                            
-                        </a>
-                    </div>
-                    <div class="kratos-post-inner-new">
-                        <header class="kratos-entry-header-new">
-                                
-                            <h2 class="kratos-entry-title-new"><a href="/2021/04/06/hello-world/">Hello World</a>
-                        </header>
-                        <div class="kratos-entry-content-new">
-                            <p>
-                                
-                                    Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using ...
-                                
-                            </p>
-                        </div>
-                    </div>
-                    <footer class="kratos-post-meta-new">
-                        <span class="pull-left">
-                            <a>
-                                <i class="fa fa-calendar"></i>
-                                2021-04-06
-                            </a>
-                            <a>
-                                
-                            </a>
-                            
-                                <!-- 当前仅支持valine/waline自带的统计功能 -->
-                                
-                            
-                            
-                                <!-- 当前仅支持waline自带的统计功能 -->
-                                
-                            
-                        </span>
-                        <span class="pull-right">
-                            <a class="read-more" href="/2021/04/06/hello-world/" title="阅读全文">阅读全文<i class="fa fa-chevron-circle-right"></i></a>
-                        </span>
-                    </footer>
-                </div>
-            </article>
-        
-    
-    
-    
-</section>
-
-
-    <div class="hidden">
-        <!-- 加载文章阅读对应的统计功能，评论自带的那种 -->
-        
+    <div class="kratos-hentry kratos-post-inner clearfix">
+        <div class="kratos-post-content">
+            <h2 class="title-h2 text-center">搜索</h2>
+            <form class="input-group" onsubmit="return inpSearch();">
+                <input class="form-input input-lg" id="search-input" maxlength="80" name="s" placeholder="有什么想找找看的呢o(*￣▽￣*)ブ" required type="search">
+                <button class="btn btn-primary" type="submit">找一找~</button>
+            </form>
+        </div>
     </div>
 
+    <div class="alert alert-info" id="kr-search-notice">
+        这里是 松鼠A的博客 的搜索引擎~
+    </div>
 
+    <div id="result-posts">
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <div class="kratos-post-content">
+                <p>搜索多个关键词时请用空格分割，例如「」这样；</p>
+                <p>您也可以使用这些标签碰碰运气哦~</p>
+                <p class="search-demo-tags">
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>var searchDataFile = "/search.json";</script>
+<script defer src="/js/local-search.min.js"></script>
 
                 
             
