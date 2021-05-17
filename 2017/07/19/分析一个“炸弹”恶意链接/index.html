@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/logo.ico">
+  <title>分析一个“炸弹”恶意链接 | 松鼠A的博客</title>
+  <meta name="author" content="sshuo" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="事件起因这其实是一件很偶然的事情，前几天在某大佬群里看大佬装逼。突然一个平日不怎么冒泡的群友发了一条链接。本着“这群里都是好人 ”的想法我就天真的点了进去……这一点可闹大了。电脑猛地变卡直至完全不能动弹，无奈的我只能重启，重启过程中突然想起刚刚做的期末作业还没有保存 …… 正文重启完成之后觉得这个链接挺好玩的，于是决定把它“顺“ 下来，看看它到底有什么神通。  如上图所示，出人预料的简单,只有七个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分析一个“炸弹”恶意链接">
+<meta property="og:url" content="http://shiyeshu.github.io/2017/07/19/%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E7%82%B8%E5%BC%B9%E2%80%9D%E6%81%B6%E6%84%8F%E9%93%BE%E6%8E%A5/index.html">
+<meta property="og:site_name" content="松鼠A的博客">
+<meta property="og:description" content="事件起因这其实是一件很偶然的事情，前几天在某大佬群里看大佬装逼。突然一个平日不怎么冒泡的群友发了一条链接。本着“这群里都是好人 ”的想法我就天真的点了进去……这一点可闹大了。电脑猛地变卡直至完全不能动弹，无奈的我只能重启，重启过程中突然想起刚刚做的期末作业还没有保存 …… 正文重启完成之后觉得这个链接挺好玩的，于是决定把它“顺“ 下来，看看它到底有什么神通。  如上图所示，出人预料的简单,只有七个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta property="article:published_time" content="2017-07-19T11:20:00.000Z">
+<meta property="article:modified_time" content="2021-05-17T08:06:48.187Z">
+<meta property="article:author" content="sshuo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/light.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>归档</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>友链</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/about/me.html">关于我</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/shiyeshu">个人项目</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">松鼠A的博客</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>松鼠A的博客</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">分析一个“炸弹”恶意链接</h1>
+                
+                <ul class="kratos-post-meta text-center">
+                    <li><i class="fa fa-calendar"></i> 2017-07-19</li>
+                    <li><i class="fa fa-user"></i> 作者 sshuo</li>
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.98K
+                        
+                        字
+                    </li>
+                    
+                </ul>
+            </header>
+            <div class="kratos-post-content">
+                <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                    本文最后编辑于 <time datetime="1621238808187"></time> 前，其中的内容可能需要更新。
+                </div>
+                
+                <hr />
+                <h2 id="事件起因"><a href="#事件起因" class="headerlink" title="事件起因"></a>事件起因</h2><p><strong>这其实是一件很偶然的事情，前几天在某大佬群里看大佬装逼。突然一个平日不怎么冒泡的群友发了一条链接。本着“这群里都是好人 ”的想法我就天真的点了进去……这一点可闹大了。电脑猛地变卡直至完全不能动弹，无奈的我只能重启，重启过程中突然想起刚刚做的期末作业还没有保存 ……</strong></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>重启完成之后觉得这个链接挺好玩的，于是决定把它“顺“ 下来，看看它到底有什么神通。</p>
+<p><a target="_blank" rel="noopener" href="http://image.3001.net/images/20170603/14964706744664.png"><img src="http://image.3001.net/images/20170603/14964706744664.png!small" alt="目录.png"></a></p>
+<p>如上图所示，出人预料的简单,只有七个文件（我还以为会有多么复杂) 六个html和一个css。其中css文件和2.html没有什么意义，纯属装饰，文章中不再讨论。</p>
+<p>本来想去度娘下看看有什么头绪没有，半路上想起这么好玩的东西freebuf上怎么可能没有呢？于是来到网站进行搜索，关键词：“崩溃”、“浏览器”。找到了这篇文章： <a target="_blank" rel="noopener" href="http://www.freebuf.com/news/63233.html">《AwSnap：让全版本（Windows、iOS、Android）Chrome浏览器崩溃的有趣漏洞》</a> 查看文件代码，果然在cr.html里面发现了这篇文章中提到的畸形URL</p>
+<p><a target="_blank" rel="noopener" href="http://image.3001.net/images/20170603/14964706929305.png"><img src="http://image.3001.net/images/20170603/14964706929305.png!small" alt="畸形URL.png"></a></p>
+<p>这下就明白了，作者通过过长或者畸形URL触发浏览器bug导致用户系统卡死</p>
+<p>那么问题来了，只是让我跪了的话只要这个cr.html就够了啊，那个ie.html 是什么？难道是针对ie的？这么6？打开看看。</p>
+<p><a target="_blank" rel="noopener" href="http://image.3001.net/images/20170603/14964707445432.png"><img src="http://image.3001.net/images/20170603/14964707445432.png!small" alt="QQ图片20170602234616.png"></a></p>
+<p>这是什么啊？有点懵逼。等等……$MFT有点眼熟，赶紧返回首页找了找最终在侧边的快讯中找到了某条信息</p>
+<p><a target="_blank" rel="noopener" href="http://image.3001.net/images/20170603/14964707575387.png"><img src="http://image.3001.net/images/20170603/14964707575387.png!small" alt="QQ图片20170602123037.png"></a></p>
+<p>经过度娘，围观大佬们的文章最终了解了这个东西的相关信息（甚至还找到了这段代码最初的出处）。</p>
+<p>当用户访问X:$MFT\下的任意文件时系统会被卡死，而且目前微软还没有发布补丁（ X 为ntfs盘符）。这个bug的厉害之处在于它太容易被触发了。不用什么高级的操作，仅仅只是浏览器正常调用就足够了。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class&#x3D;&quot;hljs-tag&quot;&gt;&lt;&lt;span class&#x3D;&quot;hljs-name&quot;&gt;img&lt;&#x2F;span&gt; &lt;span class&#x3D;&quot;hljs-attr&quot;&gt;src&lt;&#x2F;span&gt;&#x3D;&lt;&#x2F;span&gt;&lt;span class&#x3D;&quot;hljs-tag&quot;&gt;&lt;span class&#x3D;&quot;hljs-string&quot;&gt;file:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class&#x3D;&quot;hljs-tag&quot;&gt;&#x2F;&#x2F;&#x2F;&lt;span class&#x3D;&quot;hljs-attr&quot;&gt;C:&lt;&#x2F;span&gt;&#x2F;$&lt;span class&#x3D;&quot;hljs-attr&quot;&gt;MFT&lt;&#x2F;span&gt;&#x2F;&lt;span class&#x3D;&quot;hljs-attr&quot;&gt;666.jpg&lt;&#x2F;span&gt;&gt;&lt;&#x2F;span&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在网页里引用了一个让你能爆炸的目录，然后触发漏洞炸得你一脸懵逼。又针对chrome又利用ie ，这人真是可怕啊。对于一般网民来说用的浏览器无非也就360XX浏览器、或者QQ浏览器再或者等等等等吧。总之国内市面上普通网民所使用的浏览器哪个和 chrome扯不上关系，再退一步现在还用着IE的人也并不少。所以说这个链接几乎能玩死大多数网民并不是吹的。</p>
+<p>分析完这些东西以后发现了一个问题，既然作者想整人那么绝对不可能把两个文件的链接都做出来然后发送，每个文件只对应了特定的浏览器才能触发。如果链接发出去了对方浏览器不是相应的那个那岂不是装逼失败？所以说一定有一个判断页面，然后根据不同的浏览器跳转到不同的文件上去。于是打开了zz.html （zz一定是中转的简称…..）</p>
+<p><a target="_blank" rel="noopener" href="http://image.3001.net/images/20170603/14964707726204.png"><img src="http://image.3001.net/images/20170603/14964707726204.png!small" alt="QQ图片20170603001237.png"></a></p>
+<p>这个…这个判断有点猎奇啊….</p>
+<p>最终经过度娘查到了这段代码的出处。代码var ie = !-[1,];在ie9之前曾被称为世界上最短的判断代码。 它利用了IE与标准浏览器在处理数组的toString方法的差异做成的。在这段代码执行时会先调用数组的 toString()方法 ，执行[1,].toString()在 IE6,7,8中将会得到”1,”。然后表达式就变为!-”1,”。再尝试把 “1，”转换成数值类型得到NaN ,再对NaN 取负得到值仍为NaN。最后执行!NaN返回true 。代码 var ie = !-[1,]; 其实等价于 var ie = !(-Number([1,].toString())); 在IE6\7\8中值为true。</p>
+<p>因为IE6/7/8都不会忽略[1,].ToString()这个bug，即得到的是”1,”；而-Number([1,].toString())即为-Number(“1,”)得到的结果是NaN；然后!(-Number([1,].toString()))即为!(NaN)即得到true。一切的前提是IE6/7/8都有[1,].ToString()=&gt;”1,”这个bug，而其它浏览器则是[1,].ToString()=&gt;”1″</p>
+<p>引用资料：<a target="_blank" rel="noopener" href="http://www.jb51.net/article/50466.htm">《全世界最短的IE浏览器判断代码》</a></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>当用户点击这个链接会打开index.html，这个页面是欢迎界面（大概没什么意义吧）。下一步用户继续点击，页面跳转到判断页。判断页通过var ie = !-[1,];这个极短的代码判断用户浏览器类型并跳转到相对应的“爆破”页面。如果是IE浏览器就跳转到ie.html，页面通过调用$MFT目录下的123.jpg文件触发bug，用户系统被卡死。如果是chrome浏览器或者chrome内核的浏览器则会跳转到cr.html，通过畸形URL触发浏览器bug导致内存狂飙直至系统卡死。如果你的浏览器没有触发bug你将可以看到“hello world”。</p>
+<p>这个恶搞链接的作者技术可能不是怎么高，但他的见识却不短。几个简单的步骤中运用了的都是常人不会注意到或者根本想不到的东西。（$MFT出现在今年五月份，chrome崩溃那个又是出现在2015年，判断手法又来自于2010年）</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>经过自己多次作死得出几个结果，也得出了一些疑问。经测试市面上多数浏览器都会跪在cr.html面前，然而360 急速浏览器在急速模式下时不会受到影响，当切换到兼容模式时会触发漏洞导致内存狂飙。但是某老司机却告诉我将兼容模式其实是还是ie，那么是ie 又为什么会触发chrome的漏洞呢？求大佬解答。另外在一些文章中写到这个东西可以被用在XSS 中，那不是酸爽无比？</p>
+<p>这篇文章本来发表在FREEBUF，博客实在没啥可写的先弄过来充数。嘛~，转载自己的文章也不算侵权不是？</p>
+<p>&nbsp;</p>
+<p>附上大佬对文章最后疑问的解释：</p>
+<p>兼容模式只是ie方式渲染，适配类似于ActiveX插件的页面，最终毕竟还是在chrome的壳子里输出，所以畸形地址照样触发。</p>
+
+            </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://shiyeshu.github.io/2017/07/19/%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E7%82%B8%E5%BC%B9%E2%80%9D%E6%81%B6%E6%84%8F%E9%93%BE%E6%8E%A5/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://shiyeshu.github.io/2017/07/19/%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E7%82%B8%E5%BC%B9%E2%80%9D%E6%81%B6%E6%84%8F%E9%93%BE%E6%8E%A5/";
+            const title         = "「分析一个“炸弹”恶意链接」";
+            const excerpt       = `事件起因这其实是一件很偶然的事情，前几天在某大佬群里看大佬装逼。突然一个平日不怎么冒泡的群友发了一条链接。本着“这群里都是好人 ”的想法我就天真的点了进去……这一点可闹大了。电脑猛地变卡直至完全不能动弹，无奈的我只能重启，重启过程中突...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2021-05-17</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 玩转Wallpaper Engine，不同的炫酷姿势" href="/2017/07/19/玩转Wallpaper Engine，不同的炫酷姿势/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.jpg" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/hello-world%20-%20%E5%89%AF%E6%9C%AC%20(2)%20-%20%E5%89%AF%E6%9C%AC/"><i class="fa  fa-book"></i> Hello World</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/"><i class="fa  fa-book"></i> （丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/"><i class="fa  fa-book"></i> VMware-vCenter_poc</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/"><i class="fa  fa-book"></i> 初探基于windows主题的哈希传递攻击</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/"><i class="fa  fa-book"></i> 宝塔面板pma未授权访问验证POC</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="me" href="https:///@www.sshuo.cc"><i class="fa fa fa-share-alt-square"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/shiyeshu"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 松鼠A的博客 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by sshuo.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="song"
+        id="1426844352"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>

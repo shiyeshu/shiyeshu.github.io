@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/logo.ico">
+  <title>看我如何通过QQ嗅探对方 IP | 松鼠A的博客</title>
+  <meta name="author" content="sshuo" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="注意：本文仅是技术讲解，并非利用方法。技术虽好，请勿用于违法。 首先我们要知道什么是 xml 消息。在 QQ 聊天框里，除了文字和图片以外的东西，几乎都是 xml 消息。比如最近很火的“消息回执”、“网警巡查”、“虚假红包”等等。它们通过 xml 实现了在QQ内的特殊消息显示。 重点来了（敲黑板） 那么 QQXML 消息和 IP 探测有什么关系呢？ 我们平时是不是见过这种消息：&amp;nbsp; 这个消">
+<meta property="og:type" content="article">
+<meta property="og:title" content="看我如何通过QQ嗅探对方 IP">
+<meta property="og:url" content="http://shiyeshu.github.io/2020/03/04/%E7%9C%8B%E6%88%91%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87QQ%E5%97%85%E6%8E%A2%E5%AF%B9%E6%96%B9%20IP/index.html">
+<meta property="og:site_name" content="松鼠A的博客">
+<meta property="og:description" content="注意：本文仅是技术讲解，并非利用方法。技术虽好，请勿用于违法。 首先我们要知道什么是 xml 消息。在 QQ 聊天框里，除了文字和图片以外的东西，几乎都是 xml 消息。比如最近很火的“消息回执”、“网警巡查”、“虚假红包”等等。它们通过 xml 实现了在QQ内的特殊消息显示。 重点来了（敲黑板） 那么 QQXML 消息和 IP 探测有什么关系呢？ 我们平时是不是见过这种消息：&amp;nbsp; 这个消">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta property="article:published_time" content="2020-03-04T12:13:00.000Z">
+<meta property="article:modified_time" content="2021-05-17T09:37:08.069Z">
+<meta property="article:author" content="sshuo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/light.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>归档</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>友链</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/about/me.html">关于我</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/shiyeshu">个人项目</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">松鼠A的博客</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>松鼠A的博客</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">看我如何通过QQ嗅探对方 IP</h1>
+                
+                <ul class="kratos-post-meta text-center">
+                    <li><i class="fa fa-calendar"></i> 2020-03-04</li>
+                    <li><i class="fa fa-user"></i> 作者 sshuo</li>
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            1358
+                        
+                        字
+                    </li>
+                    
+                </ul>
+            </header>
+            <div class="kratos-post-content">
+                <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                    本文最后编辑于 <time datetime="1621244228069"></time> 前，其中的内容可能需要更新。
+                </div>
+                
+                <hr />
+                <p><span style="color: rgb(249, 150, 59);">注意：本文仅是技术讲解，并非利用方法。技术虽好，请勿用于违法。</span></p>
+<p>首先我们要知道什么是 xml 消息。在 QQ 聊天框里，除了文字和图片以外的东西，几乎都是 xml 消息。比如最近很火的“消息回执”、“网警巡查”、“虚假红包”等等。它们通过 xml 实现了在QQ内的特殊消息显示。</p>
+<p>重点来了（敲黑板）</p>
+<p>那么 QQXML 消息和 IP 探测有什么关系呢？</p>
+<p>我们平时是不是见过这种消息：<br>&nbsp;<img src="/images/2020/03/2566065225.png"></p>
+<p>这个消息有标题有内容，还有一个封面图片。这时候我们提取这个消息的 XML 代码:</p>
+<p><img src="/images/2020/03/3243121453.png"></p>
+<p>我们看到这段代码里有两条链接。一个是 url ，即这篇文章的地址，点击以后 QQ 就用浏览器访问了这个网址。另一个是 cover，这篇文章的封面图片。</p>
+<p>我们注意到，图片是自动加载的。当我们收到这条消息的时候，会自动显示这张图片。也就是说，只要在有网络的情况下，我们的 QQ 就会自动”访问”这个图片，不受我们自己控制。</p>
+<p>而我们都知道，当访问一个网络资源的时候服务器日志上是会记录一些信息的，也就是 http 请求信息。通过日志查看请求信息，我们可以知道访问者的 IP 、 UA 等等信息。</p>
+<p>那么，如果这个 XML 消息中的图片被篡改了呢？</p>
+<p>现在，让我们把 XML 代码中的图片替换掉。随意替换成什么都可以，但只要是在 cover 那个位置，QQ 都会主动去”访问”它。</p>
+<p>替换完成后，想办法把 XML 消息，通过 QQ 发送给目标，然后我们再去服务器日志中查看信息，就可以得到对方的 IP 以及 UA 。通过 IP 可以知道对方的位置，通过 UA 可以得到对方的设备型号。</p>
+<p>接下来，我们来实战，目标就是我们不务正业的奶凶少女曦。</p>
+<p>首先我们准备一个XML消息，找一个最常见的，就百度吧（不容易被怀疑）。在 QQ 里访问百度，然后分享出去，这样我们就能很快的得到一个XML消息。</p>
+<p>然后提取修改，将 cover 修改为自己服务器上的资源。这里我用了 ceye 作为代替（因为我穷并且懒），填上自己的 ceye 地址：</p>
+<pre><code>http://XXX.ceye.io/favicon.ico
+</code></pre>
+<p><img src="/images/2020/03/2833828355.png"></p>
+<p>将修改后的 xml 消息发送给对方，静等几秒后撤回。（静等几秒是为了让对方加载完成。撤回因为图片可能会多次被访问，造成信息混乱）<br>&nbsp;<img src="/images/2020/03/4269438453.png"></p>
+<p>这个时候图片加载不出来了，因为 XML 里面的 cover 有问题，自然显示不了。</p>
+<p>最后进入到 ceye 的后台，查看 HTTP Request 选项。<br>&nbsp;<img src="/images/2020/03/894237375.png"></p>
+<p>可以看到最上面最新的那个是萌曦的信息。下面的比较早，那个是自己的。因为 xml 消息自己肯定是第一个加载完成的。然后我们拿着 IP 和 UA 去查询。IP 查询结果这里我就不说了。看 UA，百度了一下。&nbsp;</p>
+<p><img src="/images/2020/03/2223296526.png"></p>
+<p>啧啧啧（你们去查查我的是什么设备，知道我有多贫穷了吧。</p>
+<p>实战到此结束。</p>
+<p>最后的话：</p>
+<p>其实这些操作，都是可以进一步优化，实现更舒畅的效果。</p>
+<p>比如不使用 ceye，这玩意隔三岔五崩溃，用着实在心累。</p>
+<p>比如通过某种手段将 php 当成图片，这样就能制作一个完美的私人嗅探系统。</p>
+<p>比如使用高精度 IP 定位，精确到街道等级，我就可以在放学路上拦截少女了（贱笑</p>
+<h2 id="文章首发朋友的公众号-nbsp-nbsp"><a href="#文章首发朋友的公众号-nbsp-nbsp" class="headerlink" title="文章首发朋友的公众号&nbsp;&nbsp;"></a>文章首发朋友的公众号&nbsp;&nbsp;</h2><p><img src="/images/2020/03/116758326.png"></p>
+<h2 id="请大家多多支持-nbsp-nbsp"><a href="#请大家多多支持-nbsp-nbsp" class="headerlink" title="请大家多多支持&nbsp;&nbsp;"></a>请大家多多支持&nbsp;&nbsp;</h2>
+            </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://shiyeshu.github.io/2020/03/04/%E7%9C%8B%E6%88%91%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87QQ%E5%97%85%E6%8E%A2%E5%AF%B9%E6%96%B9%20IP/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://shiyeshu.github.io/2020/03/04/%E7%9C%8B%E6%88%91%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87QQ%E5%97%85%E6%8E%A2%E5%AF%B9%E6%96%B9%20IP/";
+            const title         = "「看我如何通过QQ嗅探对方 IP」";
+            const excerpt       = `注意：本文仅是技术讲解，并非利用方法。技术虽好，请勿用于违法。
+首先我们要知道什么是 xml 消息。在 QQ 聊天框里，除了文字和图片以外的东西，几乎都是 xml 消息。比如最近很火的“消息回执”、“网警巡查”、“虚假红包”等等。它们...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2021-05-17</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" C#学习副产物--编码助手（本地编码小工具）" href="/2020/01/13/C#学习副产物--编码助手（本地编码小工具）/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 记一次久草CMS审计" href="/2020/03/16/记一次久草CMS审计/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.jpg" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/hello-world%20-%20%E5%89%AF%E6%9C%AC%20(2)%20-%20%E5%89%AF%E6%9C%AC/"><i class="fa  fa-book"></i> Hello World</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/"><i class="fa  fa-book"></i> （丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/"><i class="fa  fa-book"></i> VMware-vCenter_poc</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/"><i class="fa  fa-book"></i> 初探基于windows主题的哈希传递攻击</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/"><i class="fa  fa-book"></i> 宝塔面板pma未授权访问验证POC</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="me" href="https:///@www.sshuo.cc"><i class="fa fa fa-share-alt-square"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/shiyeshu"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 松鼠A的博客 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by sshuo.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="song"
+        id="1426844352"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>

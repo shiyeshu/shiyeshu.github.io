@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/logo.ico">
+  <title>记一次久草CMS审计 | 松鼠A的博客</title>
+  <meta name="author" content="sshuo" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="最近隔离闲的无聊，实在没什么事情就开始想练练审计 想了想因为一直都非常好奇h站的运行模式，于是目标就锁定在了h站的程序上。 这种视频站的源码能教出名字的其实一共也没几个，之前还有苹果和海洋，现在好像这两个已经因为国内打击盗版而死亡（转入地下）了。所以我其实也就只知道剩下的久草了。 说实话以前我以为久草也是视频站程序，只不过被巧妙的利用罢了。然而当我第一次打开他的官网论坛的时候就被震惊了。 光明正大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次久草CMS审计">
+<meta property="og:url" content="http://shiyeshu.github.io/2020/03/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B9%85%E8%8D%89CMS%E5%AE%A1%E8%AE%A1/index.html">
+<meta property="og:site_name" content="松鼠A的博客">
+<meta property="og:description" content="最近隔离闲的无聊，实在没什么事情就开始想练练审计 想了想因为一直都非常好奇h站的运行模式，于是目标就锁定在了h站的程序上。 这种视频站的源码能教出名字的其实一共也没几个，之前还有苹果和海洋，现在好像这两个已经因为国内打击盗版而死亡（转入地下）了。所以我其实也就只知道剩下的久草了。 说实话以前我以为久草也是视频站程序，只不过被巧妙的利用罢了。然而当我第一次打开他的官网论坛的时候就被震惊了。 光明正大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta property="article:published_time" content="2020-03-16T12:10:00.000Z">
+<meta property="article:modified_time" content="2021-05-17T09:37:50.432Z">
+<meta property="article:author" content="sshuo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/light.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>归档</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>友链</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/about/me.html">关于我</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/shiyeshu">个人项目</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">松鼠A的博客</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>松鼠A的博客</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">记一次久草CMS审计</h1>
+                
+                <ul class="kratos-post-meta text-center">
+                    <li><i class="fa fa-calendar"></i> 2020-03-16</li>
+                    <li><i class="fa fa-user"></i> 作者 sshuo</li>
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~1.55K
+                        
+                        字
+                    </li>
+                    
+                </ul>
+            </header>
+            <div class="kratos-post-content">
+                <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                    本文最后编辑于 <time datetime="1621244270432"></time> 前，其中的内容可能需要更新。
+                </div>
+                
+                <hr />
+                <p>最近隔离闲的无聊，实在没什么事情就开始想练练审计</p>
+<p>想了想因为一直都非常好奇h站的运行模式，于是目标就锁定在了h站的程序上。</p>
+<p>这种视频站的源码能教出名字的其实一共也没几个，之前还有苹果和海洋，现在好像这两个已经因为国内打击盗版而死亡（转入地下）了。所以我其实也就只知道剩下的久草了。</p>
+<p>说实话以前我以为久草也是视频站程序，只不过被巧妙的利用罢了。然而当我第一次打开他的官网论坛的时候就被震惊了。</p>
+<p>光明正大的ghs</p>
+<p><img src="/images/2020/03/1013745319.png"></p>
+<p><span style="color: rgb(28, 72, 127);">（本图为官方提供模板）</span></p>
+<span style="color: rgb(28, 72, 127);">
+</span>
+
+<p><span style="color: rgb(0, 0, 0);">不管了，把源码下下来开始审计</span></p>
+<span style="color: rgb(0, 0, 0);">
+</span>
+
+<p><span style="color: rgb(0, 0, 0);">这里下了最新的版本</span></p>
+<p><img src="/images/2020/03/1538000121.png"><span style="color: rgb(0, 0, 0);"><br></span></p>
+<pre><code>│─adminx //后台目录
+│─assets //后台样式表
+│─class //后台栏目
+│─Jccms_json //存储数据
+│─JCSQL //视频数据
+│─lib //数据模块
+│─static //播放器文件
+│─template //模板
+│─index.php //入库文件
+</code></pre>
+<p>(官方提供的结构说明)</p>
+<p>拿到源码，放到phpstudy里，首先去安装，然而没有找到常见的install目录。看了看说明发现根本就不用安装，这个时候就疑惑了。不用安装，那它的数据是存在哪里的呢？</p>
+<p>直访问首页，发现视频什么的都有了，猜测是直接向远程获取的（这也解决了视频存储问题，我就说那些小电影站不可能把文件全放本地）</p>
+<p>开始干</p>
+<p>首先用Seay审计打开</p>
+<p>先自动审计一下，按照预置规则来，应该不会漏下什么</p>
+<p><img src="/images/2020/03/1511678838.png"></p>
+<p>首先要找漏洞，我们就要找“大”的。所以理所当然的找前台漏洞，想了想这网站的性质来说也不会有什么交互，直接找注入吧。找了一会发现整个程序根本就是无SQL化。SQL注入扑街~~</p>
+<p>不过在找到时候发现了它用户认证的方式</p>
+<p><span style="background-color: rgb(241, 241, 241); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 1em; white-space: pre-wrap;">/JCSQL/Admin/Security/AdminUser.php</span></p>
+<p>这个文件里存放了用户账号密码，充当了数据库的作用。以文本形式保存不会出现SQL注入的风险，以PHP的形式存在，又能避免被下载。妙啊~</p>
+<p><img src="/images/2020/03/34552043.png"></p>
+<p>然后看看你第三行，顾名思义是IP过滤。</p>
+<p><img src="/images/2020/03/844944929.png"></p>
+<p>后台里还真就有这个功能</p>
+<p>那么问题来了，当我们修改信息的时候其实就是读写了文本。而文本又是以php存在的。那么，如果我们插入适当的payload，其实就可以直接形成任意文件读写。好了，我们再来看一看。IPPASS的传值</p>
+<p><img src="/images/2020/03/2823887452.png"></p>
+<p>好的，直接字符串写入了。并没有其他的安全函数进行过滤。这个程序本身存在一个过滤函数。</p>
+<p>经典防护<img src="/images/2020/03/3779957410.png"></p>
+<p>（好像还有一个什么函数，结果写文章时找不到了）</p>
+<p>那么我们来利用这个任意文件读写漏洞。我们的目标是AdminUser.php文件，首先通过浏览器访问，看看是否403之类的。访问后出现空白，说明可以任意用户访问，但是无显示内容（代码就三行，也真没显示的东西）</p>
+<p>回到后台，在白名单处填写我们的payload</p>
+<p>结合代码原来的样子，我们应该闭合第一个单引号，然后插入我们的代码，再闭合后面的单引号和括号之类的。</p>
+<p>大致来说就是这么个格式<span style="background-color: rgb(241, 241, 241); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 1em; white-space: pre-wrap;">‘);payload;  //‘127.0.0.1</span></p>
+<p>加入我们想写入一个文件：</p>
+<p><span style="background-color: rgb(241, 241, 241); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 1em; white-space: pre-wrap;">‘);$myfile = fopen(“1.txt”, “w”) ;$txt = “奥里给”;fwrite($myfile, $txt);  //‘127.0.0.1</span></p>
+<p>写入完成后再访问一下AdminUser.php，让代码执行。然后访问同目录下的1.txt即可看到奥力给</p>
+<p>到这里基本就完了，因为这个cms太小了，结构简单并且巧妙，没什么好玩的了。</p>
+<p>最后再来一个反射xss</p>
+<p>自动审计搜索出三个XSS可疑点</p>
+<p><img src="/images/2020/03/3054470100.png"></p>
+<p>我们点进去第一个看一看</p>
+<p><img src="/images/2020/03/3326636597.png"></p>
+<p>可以看到再script的src里直接输出了GET参数Play</p>
+<p>那么同样的直接构造即可，姿势太多了</p>
+<p>访问这个文件的时候只要加上参数XXXX.PHP?Paly=payload</p>
+<p>即可</p>
+<p>&nbsp;</p>
+<span style="color: rgb(28, 72, 127);">
+</span>
+            </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://shiyeshu.github.io/2020/03/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B9%85%E8%8D%89CMS%E5%AE%A1%E8%AE%A1/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://shiyeshu.github.io/2020/03/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B9%85%E8%8D%89CMS%E5%AE%A1%E8%AE%A1/";
+            const title         = "「记一次久草CMS审计」";
+            const excerpt       = `最近隔离闲的无聊，实在没什么事情就开始想练练审计
+想了想因为一直都非常好奇h站的运行模式，于是目标就锁定在了h站的程序上。
+这种视频站的源码能教出名字的其实一共也没几个，之前还有苹果和海洋，现在好像这两个已经因为国内打击盗版而死亡（转...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2021-05-17</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 看我如何通过QQ嗅探对方 IP" href="/2020/03/04/看我如何通过QQ嗅探对方 IP/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 记burp使用的一些坑" href="/2020/06/08/记burp使用的一些坑/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.jpg" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/hello-world%20-%20%E5%89%AF%E6%9C%AC%20(2)%20-%20%E5%89%AF%E6%9C%AC/"><i class="fa  fa-book"></i> Hello World</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/"><i class="fa  fa-book"></i> （丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/"><i class="fa  fa-book"></i> VMware-vCenter_poc</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/"><i class="fa  fa-book"></i> 初探基于windows主题的哈希传递攻击</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/"><i class="fa  fa-book"></i> 宝塔面板pma未授权访问验证POC</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="me" href="https:///@www.sshuo.cc"><i class="fa fa fa-share-alt-square"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/shiyeshu"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 松鼠A的博客 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by sshuo.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="song"
+        id="1426844352"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>

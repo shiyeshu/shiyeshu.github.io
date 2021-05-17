@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  <link rel="icon" href="/images/logo.ico">
+  <title>记一次反盗版胜利 | 松鼠A的博客</title>
+  <meta name="author" content="sshuo" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="" />
+  
+  <meta name="description" content="七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。  直到对方说了一句话：以后有好的源码请联系我… 有好的源码请联系我… 源码请联系我 … 请联系我…&amp;nbsp; 我…&amp;nbsp;&amp;nbsp; 突然觉得事情没那么简单…不过当时因为正在旅游所以转脸就给忘了。 直到今天突然想把程序放到专业的源码出售">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次反盗版胜利">
+<meta property="og:url" content="http://shiyeshu.github.io/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/index.html">
+<meta property="og:site_name" content="松鼠A的博客">
+<meta property="og:description" content="七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。  直到对方说了一句话：以后有好的源码请联系我… 有好的源码请联系我… 源码请联系我 … 请联系我…&amp;nbsp; 我…&amp;nbsp;&amp;nbsp; 突然觉得事情没那么简单…不过当时因为正在旅游所以转脸就给忘了。 直到今天突然想把程序放到专业的源码出售">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta property="article:published_time" content="2018-11-03T14:20:00.000Z">
+<meta property="article:modified_time" content="2021-05-17T09:10:19.444Z">
+<meta property="article:author" content="sshuo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://shiyeshu.github.io/images/logo.ico">
+<meta name="twitter:site" content="@null">
+  
+  <!-- 站点验证相关 -->
+  
+    
+    
+    
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kratosr.min.css" type="text/css" media="all">
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/light.min.css" type="text/css" media="all">
+  
+  
+  <link rel="stylesheet" id="fontawe-css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css" media="all">
+  <link rel="stylesheet" id="nprogress-css" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" type="text/css" media="all">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  
+    <link rel="stylesheet" id="darkmode-css" href="/css/kr-dark.min.css" type="text/css" media="all">
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/qrcode_js@1.0.0/qrcode.min.js"></script>
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    
+                                        <li><a href="/"><i class="fa fa-home"></i>首页</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/archives/"><i class="fa fa-file"></i>归档</a></li>
+                                    
+                                
+                                    
+                                        <li><a href="/friends/"><i class="fa fa-paw"></i>友链</a></li>
+                                    
+                                
+                                    
+                                        <li>
+                                            <a><i class="fa fa-link"></i>链接</a>
+                                            <ul class="sub-menu">
+                                                
+                                                    
+                                                
+                                                    
+                                                        <li><a href="/about/me.html">关于我</a></li>
+                                                    
+                                                
+                                                    
+                                                        <li><a target="_blank" rel="noopener" href="https://github.com/shiyeshu">个人项目</a></li>
+                                                    
+                                                
+                                            </ul>
+                                        </li>
+                                    
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">松鼠A的博客</a></div>
+                    <div class="nav-toggle">
+                        <a class="kratos-nav-toggle js-kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>松鼠A的博客</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+                    
+
+        <section class="col-md-8">
+    <article>
+        <div class="kratos-hentry kratos-post-inner clearfix">
+            <header class="kratos-entry-header">
+                <h1 class="kratos-entry-title text-center">记一次反盗版胜利</h1>
+                
+                <ul class="kratos-post-meta text-center">
+                    <li><i class="fa fa-calendar"></i> 2018-11-03</li>
+                    <li><i class="fa fa-user"></i> 作者 sshuo</li>
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            1027
+                        
+                        字
+                    </li>
+                    
+                </ul>
+            </header>
+            <div class="kratos-post-content">
+                <div id="expire-alert" class="alert alert-warning hidden" role="alert">
+                    本文最后编辑于 <time datetime="1621242619444"></time> 前，其中的内容可能需要更新。
+                </div>
+                
+                <hr />
+                <p>七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。</p>
+<p><img src="/images/2018/11/2186415764.png"></p>
+<p>直到对方说了一句话：以后有好的源码请联系我…</p>
+<p>有好的源码请联系我…</p>
+<p>源码请联系我 …</p>
+<p>请联系我…&nbsp;</p>
+<p>我…&nbsp;&nbsp;</p>
+<p>突然觉得事情没那么简单…不过当时因为正在旅游所以转脸就给忘了。</p>
+<p>直到今天突然想把程序放到专业的源码出售平台上，没多想直接进入了百度第一个网站</p>
+<p><img src="/images/2018/11/2806161008.png"></p>
+<p>进入网站后就想到了当初旅游时发生的事，于是就搜了一下。</p>
+<p><img src="/images/2018/11/1783582724.png"></p>
+<p>还不止一家呢…</p>
+<p>卖的比我还贵（捂脸）</p>
+<p>其实说实话，如果当时买的时候你就给我说明要倒卖，再随意加点钱就能把我给打发了。但你没说过啊，写代码的最厌恶这种行为了。</p>
+<p>所以…那不行啊，这就是盗卖了，别怪我不客气</p>
+<p>于是找到网站客服交流：</p>
+<p><img src="/images/2018/11/2975204919.png"></p>
+<p>虽说没有提供太有力的证据，不过已经在处理，可以算是阶段性胜利了。</p>
+<p>经过这件事我结合周围发生的事（比如DGG事件），于是想了想如何才能防止盗版。最后得出结论，在没有巨大投资的情况下几乎不可能实现杜绝盗版。但是也有一些方法可以起到一些作用。防不住一百个人，防住五十个也不错。</p>
+<p><span style="color: rgb(194, 79, 74);">1、授权系统</span></p>
+<p>网站程序防盗必定离不开授权系统，这也是市面上最常用的防盗方式。</p>
+<p>①激活码授权</p>
+<p>出售激活码，将激活码写入到指定文件。当网页运行的时候激活码将会远程发送到服务器验证端。验证端在数据库中查询激活码是否存在（可以加上域名验证），通过最简单的if语句即可实现功能。<br>之前在其他文章里也提到过这个想法：<a href="/imagesarchives/319.html">《一个简易授权demo》</a></p>
+<p>（不能防止激活码重复使用）</p>
+<p>②单号验证+代码混淆</p>
+<p>每次出售的源码都不同，和上一个方法类似将交易单号插入到某个文件（重要文件，比如数据库连接文件）。然后对代码进行加密混淆。每次网页运行后远程服务端便记录运行单号和域名。若出现同一单号运行在两个域名则终止程序运行。</p>
+<p>（手动修改太麻烦，不适合懒癌患者）</p>
+<p><span style="color: rgb(194, 79, 74);">2、后门</span></p>
+<p>③后门</p>
+<p>这是用户最讨厌也是开发者最喜欢的手段。用户讨厌是因为后门指不准能走到哪。开发者喜欢是因为…它真<del>的</del>很<del>爽</del>啊~</p>
+<p>和以前黑别人网站比起来自己“黑”才是真的爽啊~</p>
+<p>想插哪就插哪，想怎么动就怎么动。插上去后还能再加个密啥的….不行不行老毛病又要犯了，淡定淡定。</p>
+<p>用多个文件进行拼接，某些部分混淆加密一下，呵呵哒~</p>
+<p>顺便返回下域名</p>
+<p>菜刀直接莽，不怂</p>
+<p>（太缺德，而且没有识别手段）</p>
+<p>总之先想到这么多，以后再有新操作再加上来。</p>
+
+            </div>
+            
+            <footer class="kratos-entry-footer clearfix">
+                
+                    <div class="post-like-donate text-center clearfix" id="post-like-donate">
+                    
+                    
+                        <a class="share" href="javascript:;"><i class="fa fa-share-alt"></i> 分享</a>
+                        <div class="share-wrap" style="display: none;">
+    <div class="share-group">
+        <a href="javascript:;" class="share-plain qq" onclick="share('qq');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-qq"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain qzone" onclick="share('qzone');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-star"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weixin pop style-plain" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weixin"></i>
+            </div>
+            <div class="share-int">
+                <div class="qrcode" id="wechat-qr"></div>
+                <p>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</p>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain weibo" onclick="share('weibo');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-weibo"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain facebook style-plain" onclick="share('facebook');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-facebook"></i>
+            </div>
+        </a>
+        <a href="javascript:;" class="share-plain twitter style-plain" onclick="share('twitter');" rel="nofollow">
+            <div class="icon-wrap">
+                <i class="fa fa-twitter"></i>
+            </div>
+        </a>
+    </div>
+    <script type="text/javascript">
+        $(()=>{
+            new QRCode("wechat-qr", {
+                text: "http://shiyeshu.github.io/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/",
+                width: 150,
+                height: 150,
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        });
+        function share(dest) {
+            const qqBase        = "https://connect.qq.com/widget/shareqq/index.html?";
+            const weiboBase     = "https://service.weibo.com/share/share.php?";
+            const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
+            const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
+            const twitterBase   = "https://twitter.com/intent/tweet?";
+            const hostUrl       = "http://shiyeshu.github.io/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/";
+            const title         = "「记一次反盗版胜利」";
+            const excerpt       = `七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。
+
+直到对方说了一句话：以后有好的源码请联系我…
+有好的源码请联系我…
+源码请联...`;
+            let _URL;
+            switch (dest) {
+                case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
+                case "weibo"    : _URL = weiboBase+"url="+hostUrl+"&title="+title+excerpt;                                 break;
+                case "qzone"    : _URL = qzoneBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";  break;
+                case "facebook" : _URL = facebookBase+"u="+hostUrl;                                                        break;
+                case "twitter"  : _URL = twitterBase+"text="+title+excerpt+"&url="+hostUrl;                                break;
+            }
+            window.open(_URL);
+        };
+    </script>
+</div>
+                    
+                    </div>
+                
+                <div class="footer-tag clearfix">
+                    <div class="pull-left">
+                    <i class="fa fa-tags"></i>
+                        
+                    </div>
+                    <div class="pull-date">
+                    <span>最后编辑：2021-05-17</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+            <nav class="navigation post-navigation clearfix" role="navigation">
+                
+                <div class="nav-previous clearfix">
+                    <a title=" 博客一周年纪念" href="/2018/09/15/博客一周年纪念/">&lt; 上一篇</a>
+                </div>
+                
+                
+                <div class="nav-next clearfix">
+                    <a title=" 菜鸡练手---表白墙" href="/2018/12/19/菜鸡练手---表白墙/">下一篇 &gt;</a>
+                </div>
+                
+            </nav>
+        
+        
+    </article>
+</section>
+
+                
+            
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.jpg" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+
+            
+                
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/hello-world%20-%20%E5%89%AF%E6%9C%AC%20(2)%20-%20%E5%89%AF%E6%9C%AC/"><i class="fa  fa-book"></i> Hello World</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/"><i class="fa  fa-book"></i> （丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/"><i class="fa  fa-book"></i> VMware-vCenter_poc</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/"><i class="fa  fa-book"></i> 初探基于windows主题的哈希传递攻击</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/"><i class="fa  fa-book"></i> 宝塔面板pma未授权访问验证POC</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+        
+        </div>
+    </div>
+</div>
+<footer>
+    <div id="footer"  class="ap-lrc"  >
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search/">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="box theme-box" id="darkmode-switch">
+                        <span class="fa fa-adjust"></span>
+                    </div>
+                
+                
+            </div>
+            <div class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a target="_blank" rel="me" href="https:///@www.sshuo.cc"><i class="fa fa fa-share-alt-square"></i></a></li>
+                        <li><a target="_blank" rel="nofollow" href="https://github.com/shiyeshu"><i class="fa fa-github"></i></a></li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2021 松鼠A的博客 版权所有.</li>
+                            <li>本站已运行<span id="span_dt">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>Theme <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a></li>
+                            <li>Site built with&nbsp;<i class="fa fa-heart throb" style="color:#d43f57"></i>&nbsp;by sshuo.</li>
+                        </div>
+                        <div>
+                            <li>Powered by <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a></li>
+                            <li>Hosted on <a href="https://github.io" target="_blank">Github Pages</a></li>
+                        </div>
+                        <div>
+                            
+                            
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.4/dist/js/bootstrap.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+<script>const notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));</script>
+
+<script async src="/js/candy.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js
+        server="netease"
+        type="song"
+        id="1426844352"
+        order="random"
+        fixed="true"
+    >
+    </meting-js>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script defer src="/js/kratosr.min.js"></script>
+<script defer src="/js/pjax.min.js"></script>
+
+
+    <script defer src="/js/kr-dark.min.js"></script>
+
+
+
+<!-- Extra support for third-party plguins  -->
+
+
+    </body>
+</html>
