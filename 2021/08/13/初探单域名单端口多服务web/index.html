@@ -24,7 +24,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.sshuo.cc/images/logo.ico">
 <meta property="article:published_time" content="2021-08-13T11:46:54.398Z">
-<meta property="article:modified_time" content="2021-08-13T12:41:45.975Z">
+<meta property="article:modified_time" content="2021-10-06T15:42:53.846Z">
 <meta property="article:author" content="sshuo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.sshuo.cc/images/logo.ico">
@@ -179,7 +179,7 @@
             </header>
             <div class="kratos-post-content">
                 <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                    本文最后编辑于 <time datetime="1628858505975"></time> 前，其中的内容可能需要更新。
+                    本文最后编辑于 <time datetime="1633534973846"></time> 前，其中的内容可能需要更新。
                 </div>
                 
                 <hr />
@@ -188,8 +188,8 @@
 <p>反代====反向代理</p>
 <p>一般运维大多都会这个东西，属于比较基础的一种类vpn技术。之前我也只是大概直到这个东西，这次正好借机会学习学习。</p>
 <p>首先说下反向代理的概念，先放两张图</p>
-<p><img src="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/blog\blog\source_posts\反向代理\2019071410035816.png" alt="正向代理"></p>
-<p><img src="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/blog\blog\source_posts\反向代理\20190714101701974.png" alt="反向代理"></p>
+<p><img src="https://img.sshuo.cc/2021-10/2019071410035816.png" alt="正向代理"></p>
+<p><img src="https://img.sshuo.cc/2021-10/20190714101701974.png" alt="反向代理"></p>
 <p>两张图其实已经非常清楚了，要是还不懂的话。用通俗的话来说普通的代理（正向），将用户变成代理服务器去访问资源。反向代理是服务器把资源拿来给用户访问。一个是让用户出去，一个是让资源进来。</p>
 <p>那么说起反向代理就不得不提到Nginx，一般反代服务器都是用这个，虽然Apache也可以，但是用的人好像并不是很多。</p>
 <p>反向代理功能在Nginx的配置文件中设置。Nginx/conf/nginx.conf    </p>
@@ -197,7 +197,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">	server &#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <p>http即http服务器相关，server即开启的服务功能模块。所以我们需要在server里进行设置。</p>
-<p><img src="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/blog\blog\source_posts\反向代理\image-20210813203043769.png" alt="image-20210813203043769"></p>
+<p><img src="https://img.sshuo.cc/2021-10/image-20210813203043769.png" alt="image-20210813203043769"></p>
 <p>如图所示。</p>
 <p>server监听80端口</p>
 <p>服务识别名称为绑定的域名</p>
@@ -293,7 +293,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2021-08-13</span>
+                    <span>最后编辑：2021-10-06</span>
                     </div>
                 </div>
             </footer>
