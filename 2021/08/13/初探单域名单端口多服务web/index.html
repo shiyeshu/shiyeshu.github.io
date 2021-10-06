@@ -4,7 +4,7 @@
   <!-- 元数据 -->
   <meta charset="utf-8">
   <link rel="icon" href="/images/logo.ico">
-  <title>记一次反盗版胜利 | 松鼠A的博客</title>
+  <title>初探单域名单端口多服务web | 松鼠A的博客</title>
   <meta name="author" content="sshuo" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -15,16 +15,16 @@
   
     <meta name="keywords" content="" />
   
-  <meta name="description" content="七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。  直到对方说了一句话：以后有好的源码请联系我… 有好的源码请联系我… 源码请联系我 … 请联系我…&amp;nbsp; 我…&amp;nbsp;&amp;nbsp; 突然觉得事情没那么简单…不过当时因为正在旅游所以转脸就给忘了。 直到今天突然想把程序放到专业的源码出售">
+  <meta name="description" content="这阵子遇到好几次这么一种情况。一个域名，一个端口，但是存在不同后缀的文件。 当时首先想到的是端口复用，虽然没实际用过但是看这个词就知道功能上应该没问题。但是想了想，一般的开发或者运维人员技术力并不强，大概率是不会用端口复用的。直到昨天在某群里有师傅发了一个文章的截图，图里说到了这种情况，并且说可能是用了反代技术。这时候我才恍然大悟。 反代&#x3D;&#x3D;&#x3D;&#x3D;反向代理 一般运维大多都会这个东西，属于比较基础的一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次反盗版胜利">
-<meta property="og:url" content="https://www.sshuo.cc/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/index.html">
+<meta property="og:title" content="初探单域名单端口多服务web">
+<meta property="og:url" content="https://www.sshuo.cc/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/index.html">
 <meta property="og:site_name" content="松鼠A的博客">
-<meta property="og:description" content="七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。  直到对方说了一句话：以后有好的源码请联系我… 有好的源码请联系我… 源码请联系我 … 请联系我…&amp;nbsp; 我…&amp;nbsp;&amp;nbsp; 突然觉得事情没那么简单…不过当时因为正在旅游所以转脸就给忘了。 直到今天突然想把程序放到专业的源码出售">
+<meta property="og:description" content="这阵子遇到好几次这么一种情况。一个域名，一个端口，但是存在不同后缀的文件。 当时首先想到的是端口复用，虽然没实际用过但是看这个词就知道功能上应该没问题。但是想了想，一般的开发或者运维人员技术力并不强，大概率是不会用端口复用的。直到昨天在某群里有师傅发了一个文章的截图，图里说到了这种情况，并且说可能是用了反代技术。这时候我才恍然大悟。 反代&#x3D;&#x3D;&#x3D;&#x3D;反向代理 一般运维大多都会这个东西，属于比较基础的一">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.sshuo.cc/images/logo.ico">
-<meta property="article:published_time" content="2018-11-03T14:20:00.000Z">
-<meta property="article:modified_time" content="2021-05-17T09:10:19.444Z">
+<meta property="article:published_time" content="2021-08-13T11:46:54.398Z">
+<meta property="article:modified_time" content="2021-08-13T12:41:45.975Z">
 <meta property="article:author" content="sshuo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.sshuo.cc/images/logo.ico">
@@ -155,21 +155,21 @@
     <article>
         <div class="kratos-hentry kratos-post-inner clearfix">
             <header class="kratos-entry-header">
-                <h1 class="kratos-entry-title text-center">记一次反盗版胜利</h1>
+                <h1 class="kratos-entry-title text-center">初探单域名单端口多服务web</h1>
                 
                 <ul class="kratos-post-meta text-center">
-                    <li><i class="fa fa-calendar"></i> 2018-11-03</li>
+                    <li><i class="fa fa-calendar"></i> 2021-08-13</li>
                     <li><i class="fa fa-user"></i> 作者 sshuo</li>
                     <li>
                         <i class="fa fa-edit"></i> 
                         
                         
-                            1027
+                            1004
                         
                         字
                     </li>
                     
-                        <li id="/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/" class="leancloud_visitors" data-flag-title="记一次反盗版胜利">
+                        <li id="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/" class="leancloud_visitors" data-flag-title="初探单域名单端口多服务web">
                             <i class="fa fa-eye"></i>
                             <span class="leancloud-visitors-count"> </span> 次阅读
                         </li>
@@ -179,48 +179,34 @@
             </header>
             <div class="kratos-post-content">
                 <div id="expire-alert" class="alert alert-warning hidden" role="alert">
-                    本文最后编辑于 <time datetime="1621242619444"></time> 前，其中的内容可能需要更新。
+                    本文最后编辑于 <time datetime="1628858505975"></time> 前，其中的内容可能需要更新。
                 </div>
                 
                 <hr />
-                <p>七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。</p>
-<p><img src="/images/2018/11/2186415764.png"></p>
-<p>直到对方说了一句话：以后有好的源码请联系我…</p>
-<p>有好的源码请联系我…</p>
-<p>源码请联系我 …</p>
-<p>请联系我…&nbsp;</p>
-<p>我…&nbsp;&nbsp;</p>
-<p>突然觉得事情没那么简单…不过当时因为正在旅游所以转脸就给忘了。</p>
-<p>直到今天突然想把程序放到专业的源码出售平台上，没多想直接进入了百度第一个网站</p>
-<p><img src="/images/2018/11/2806161008.png"></p>
-<p>进入网站后就想到了当初旅游时发生的事，于是就搜了一下。</p>
-<p><img src="/images/2018/11/1783582724.png"></p>
-<p>还不止一家呢…</p>
-<p>卖的比我还贵（捂脸）</p>
-<p>其实说实话，如果当时买的时候你就给我说明要倒卖，再随意加点钱就能把我给打发了。但你没说过啊，写代码的最厌恶这种行为了。</p>
-<p>所以…那不行啊，这就是盗卖了，别怪我不客气</p>
-<p>于是找到网站客服交流：</p>
-<p><img src="/images/2018/11/2975204919.png"></p>
-<p>虽说没有提供太有力的证据，不过已经在处理，可以算是阶段性胜利了。</p>
-<p>经过这件事我结合周围发生的事（比如DGG事件），于是想了想如何才能防止盗版。最后得出结论，在没有巨大投资的情况下几乎不可能实现杜绝盗版。但是也有一些方法可以起到一些作用。防不住一百个人，防住五十个也不错。</p>
-<p><span style="color: rgb(194, 79, 74);">1、授权系统</span></p>
-<p>网站程序防盗必定离不开授权系统，这也是市面上最常用的防盗方式。</p>
-<p>①激活码授权</p>
-<p>出售激活码，将激活码写入到指定文件。当网页运行的时候激活码将会远程发送到服务器验证端。验证端在数据库中查询激活码是否存在（可以加上域名验证），通过最简单的if语句即可实现功能。<br>之前在其他文章里也提到过这个想法：<a href="/imagesarchives/319.html">《一个简易授权demo》</a></p>
-<p>（不能防止激活码重复使用）</p>
-<p>②单号验证+代码混淆</p>
-<p>每次出售的源码都不同，和上一个方法类似将交易单号插入到某个文件（重要文件，比如数据库连接文件）。然后对代码进行加密混淆。每次网页运行后远程服务端便记录运行单号和域名。若出现同一单号运行在两个域名则终止程序运行。</p>
-<p>（手动修改太麻烦，不适合懒癌患者）</p>
-<p><span style="color: rgb(194, 79, 74);">2、后门</span></p>
-<p>③后门</p>
-<p>这是用户最讨厌也是开发者最喜欢的手段。用户讨厌是因为后门指不准能走到哪。开发者喜欢是因为…它真<del>的</del>很<del>爽</del>啊~</p>
-<p>和以前黑别人网站比起来自己“黑”才是真的爽啊~</p>
-<p>想插哪就插哪，想怎么动就怎么动。插上去后还能再加个密啥的….不行不行老毛病又要犯了，淡定淡定。</p>
-<p>用多个文件进行拼接，某些部分混淆加密一下，呵呵哒~</p>
-<p>顺便返回下域名</p>
-<p>菜刀直接莽，不怂</p>
-<p>（太缺德，而且没有识别手段）</p>
-<p>总之先想到这么多，以后再有新操作再加上来。</p>
+                <p>这阵子遇到好几次这么一种情况。一个域名，一个端口，但是存在不同后缀的文件。</p>
+<p>当时首先想到的是端口复用，虽然没实际用过但是看这个词就知道功能上应该没问题。但是想了想，一般的开发或者运维人员技术力并不强，大概率是不会用端口复用的。直到昨天在某群里有师傅发了一个文章的截图，图里说到了这种情况，并且说可能是用了反代技术。这时候我才恍然大悟。</p>
+<p>反代====反向代理</p>
+<p>一般运维大多都会这个东西，属于比较基础的一种类vpn技术。之前我也只是大概直到这个东西，这次正好借机会学习学习。</p>
+<p>首先说下反向代理的概念，先放两张图</p>
+<p><img src="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/blog\blog\source_posts\反向代理\2019071410035816.png" alt="正向代理"></p>
+<p><img src="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/blog\blog\source_posts\反向代理\20190714101701974.png" alt="反向代理"></p>
+<p>两张图其实已经非常清楚了，要是还不懂的话。用通俗的话来说普通的代理（正向），将用户变成代理服务器去访问资源。反向代理是服务器把资源拿来给用户访问。一个是让用户出去，一个是让资源进来。</p>
+<p>那么说起反向代理就不得不提到Nginx，一般反代服务器都是用这个，虽然Apache也可以，但是用的人好像并不是很多。</p>
+<p>反向代理功能在Nginx的配置文件中设置。Nginx/conf/nginx.conf    </p>
+<p>该文件中的内容基本可以以这个结构理解</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">	server &#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>http即http服务器相关，server即开启的服务功能模块。所以我们需要在server里进行设置。</p>
+<p><img src="/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/blog\blog\source_posts\反向代理\image-20210813203043769.png" alt="image-20210813203043769"></p>
+<p>如图所示。</p>
+<p>server监听80端口</p>
+<p>服务识别名称为绑定的域名</p>
+<p>location 即为本地相关设置，后面可跟路径、正则。在这里我写了两个规则，分别是判断两个格式后缀。</p>
+<p>所以这个配置的功能就是：当以<a target="_blank" rel="noopener" href="http://www.ttt.com访问到该服务器时,判断访问后缀.如果是html则反代888端口服务,txt则反代到889端口的服务上.(两个端口是为了区分不同网站,因为我也真没有两台服务器,只好以一台服务器的两个端口区分)/">www.ttt.com访问到该服务器时，判断访问后缀。如果是html则反代888端口服务，txt则反代到889端口的服务上。（两个端口是为了区分不同网站，因为我也真没有两台服务器，只好以一台服务器的两个端口区分）</a></p>
+<p>location 配置规则</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6908623305129852942">https://juejin.cn/post/6908623305129852942</a></p>
+<p>y4er师傅说也可能是本地web服务+一个反代。这种思路大概也能出现这种功能，但我觉得还是保持存疑。因为在配置文件上好像有一些冲突的地方。web服务应该是直接在http一层设置的，反代在server层。两个先不说优先级和覆盖。location的规则可是只能在本层生效，上层应该是不行的。</p>
+<p>当然，到这里我就没再试了，也不敢肯定，只是推测。</p>
 
             </div>
             
@@ -270,7 +256,7 @@
     <script type="text/javascript">
         $(()=>{
             new QRCode("wechat-qr", {
-                text: "https://www.sshuo.cc/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/",
+                text: "https://www.sshuo.cc/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/",
                 width: 150,
                 height: 150,
                 correctLevel : QRCode.CorrectLevel.H
@@ -282,13 +268,10 @@
             const qzoneBase     = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?";
             const facebookBase  = "https://www.facebook.com/sharer/sharer.php?";
             const twitterBase   = "https://twitter.com/intent/tweet?";
-            const hostUrl       = "https://www.sshuo.cc/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/";
-            const title         = "「记一次反盗版胜利」";
-            const excerpt       = `七月份左右的时候我鼓鼓捣捣终于完成了自己的第一个练手作品，二维码活码系统。抱着卖一个赚一个的心态就挂到了淘宝上。没过多久就有人购买，当时我当然是非常开心。
-
-直到对方说了一句话：以后有好的源码请联系我…
-有好的源码请联系我…
-源码请联...`;
+            const hostUrl       = "https://www.sshuo.cc/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/";
+            const title         = "「初探单域名单端口多服务web」";
+            const excerpt       = `这阵子遇到好几次这么一种情况。一个域名，一个端口，但是存在不同后缀的文件。
+当时首先想到的是端口复用，虽然没实际用过但是看这个词就知道功能上应该没问题。但是想了想，一般的开发或者运维人员技术力并不强，大概率是不会用端口复用的。直到昨天...`;
             let _URL;
             switch (dest) {
                 case "qq"       : _URL = qqBase+"url="+hostUrl+"&title="+title+"&desc=&summary="+excerpt+"&site=cxpy";     break;
@@ -310,7 +293,7 @@
                         
                     </div>
                     <div class="pull-date">
-                    <span>最后编辑：2021-05-17</span>
+                    <span>最后编辑：2021-08-13</span>
                     </div>
                 </div>
             </footer>
@@ -319,13 +302,9 @@
             <nav class="navigation post-navigation clearfix" role="navigation">
                 
                 <div class="nav-previous clearfix">
-                    <a title=" 博客一周年纪念" href="/2018/09/15/博客一周年纪念/">&lt; 上一篇</a>
+                    <a title=" ATT&amp;CK实战系列-红队评估（一）靶场笔记" href="/2021/06/14/ATT&CK实战系列-红队评估（一）靶场笔记/">&lt; 上一篇</a>
                 </div>
                 
-                
-                <div class="nav-next clearfix">
-                    <a title=" 菜鸡练手---表白墙" href="/2018/12/19/菜鸡练手---表白墙/">下一篇 &gt;</a>
-                </div>
                 
             </nav>
         
@@ -340,7 +319,7 @@
                 appKey: 'Yuw3K8zBr35sjiopdKHiM7AH',
                 visitor: true,
                 enableQQ: true,
-                path: '/2018/11/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%8F%8D%E7%9B%97%E7%89%88%E8%83%9C%E5%88%A9/'
+                path: '/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/'
             });
         }
         if (typeof Valine == 'undefined') {
