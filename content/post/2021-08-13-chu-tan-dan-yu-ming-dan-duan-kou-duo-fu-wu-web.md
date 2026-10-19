@@ -20,9 +20,9 @@ commentsPath: "/2021/08/13/初探单域名单端口多服务web/"
 
 首先说下反向代理的概念，先放两张图
 
-![正向代理](https://img.sshuo.cc/2021-10/2019071410035816.png)
+![正向代理](/images/xlog/bafkreiclazmip3eao4tnv5stwprvfr34xpnmtsillaa5slufcggsqamehi.png)
 
-![反向代理](https://img.sshuo.cc/2021-10/20190714101701974.png)
+![反向代理](/images/xlog/bafkreiff377pohrsxwmoyugqmk52rlw7cb7d5rrurgwm7h4epjpvzcthne.png)
 
 两张图其实已经非常清楚了，要是还不懂的话。用通俗的话来说普通的代理（正向），将用户变成代理服务器去访问资源。反向代理是服务器把资源拿来给用户访问。一个是让用户出去，一个是让资源进来。
 
@@ -42,7 +42,7 @@ http {
 
 http即http服务器相关，server即开启的服务功能模块。所以我们需要在server里进行设置。
 
-![image-20210813203043769](https://img.sshuo.cc/2021-10/image-20210813203043769.png)
+![image-20210813203043769](/images/xlog/bafkreibxr5n5ae6cikpm7aibmky6o4bhl5pe56qsxhlpvybdcq4qjwcbgi.png)
 
 如图所示。
 

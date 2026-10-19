@@ -14,21 +14,21 @@ commentsPath: "/2022/07/13/某省市hw随记/某省市hw随记/"
 
 前阵子去打了个小hw，遇到了一些东西，随手记一下。
 
-![](http://img.sshuo.cc/2022/a882505938e4339ae2bd0ca96eb2ec3.jpg)
+![](/images/xlog/bafybeibivuypufzvc5gx4kowlqhkeeufgu4y23mtn4pqe4rgkzo7kjurkq.jpg)
 
 ### 1、路由器安全
 
 广撒网搜集信息的时候发现目标网段存在一个路由器登录界面
 
-![Snipaste_2022-07-14_23-58-36](http://img.sshuo.cc/2022/Snipaste_2022-07-14_23-58-36.jpg)
+![Snipaste_2022-07-14_23-58-36](/images/xlog/bafkreibtlg5yl2iqq4kolmt2yyrsf6hrwgz7yxkh6u5fsbpgflgghwepee.jpg)
 
 ​ 这种路由器版本一般是家用的，很少有企业会用，但是这个网段又是商业网段不可能有居民用户。所以推测这个可能是操作不规范意外暴漏的东西，于是在本地漏洞库搜索了一下找到了一个任意文件下载。下载其配置文件，获得账户密码。
 
-![](http://img.sshuo.cc/2022/Snipaste_2022-07-15_00-04-10.jpg)
+![](/images/xlog/bafkreiaaakbo5cdvuqcen4ijakwv6bspscwhipwmhggcgrljmg3oog5qea.jpg)
 
 进入控制台后发现有隧道代理功能。
 
-![](http://img.sshuo.cc/2022/Snipaste_2022-07-15_00-08-44.jpg) 鼓捣了半天才搞懂这东西怎么用。配置客户端连接即可。服务端是用来类似于多个同品牌路由器组网用的。IPSec是种加密方式，不使用也是可以的。
+![](/images/xlog/bafkreieebzfxaxpjqmjqmzmqz46zo66qfd3nixzhkskbbn4gmrj4lq25fu.jpg) 鼓捣了半天才搞懂这东西怎么用。配置客户端连接即可。服务端是用来类似于多个同品牌路由器组网用的。IPSec是种加密方式，不使用也是可以的。
 
 ​ 最后使用了pptp+win7系统才概率情况下连接成功。win11和mac都不能正常连接（kali也会异常）。连接完成后就等于进入了目标内网，后续不再赘述……
 
@@ -38,7 +38,7 @@ commentsPath: "/2022/07/13/某省市hw随记/某省市hw随记/"
 
 ​ 目标网段发现目标企业的OA系统为用友，并且存在Beanshell rce
 
-![](http://img.sshuo.cc/2022/Snipaste_2022-07-15_00-17-08.jpg)
+![](/images/xlog/bafkreigs32glv32zlkz3fqyr2kwi6zrdb7mn7zyhbarjoepx42kfxuvgmy.jpg)
 
 然而刚开始发现默认beanshell目录页面存在，但是无法执行任何命令。遂细查该漏洞的具体分析，发现在其他目录（模块）下也存在该漏洞，于是找了一份字典跑路径，从中挑选质量最佳的进行后续操作。 [字典链接](http://img.sshuo.cc/2022/%E7%94%A8%E5%8F%8Bnc%E2%80%94%E2%80%94bshell.txt)
 
@@ -98,6 +98,6 @@ commentsPath: "/2022/07/13/某省市hw随记/某省市hw随记/"
 
 ​ 继续回过头看官网系统，配置文件中发现数据库服务器、redis服务器、ros服务器账户密码及IP，但数据库和redis都存在访问白名单，只有ros服务器可以访问。但是不知道这个所谓的ros服务器是个什么东西。于是百度学习，最后发现是个路由器，并且找到一个连接工具 [链接](https://www.roszj.com/winbox)
 
-![如图](http://img.sshuo.cc/2022/winboc-zh4.png)
+![如图](/images/xlog/bafkreifputgxfkefs2vdw7qe7eqvyclfhm25u54xrxdeeex4fesvtj4p24.png)
 
 大概连上去是这样的，没有太大价值。 总结：如果不是时间太多，遇到这种idc的架构建议先放一边，日后再说
