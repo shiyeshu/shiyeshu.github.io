@@ -1,0 +1,47 @@
+# =============================================================================
+# 松鼠A的博客 —— Hugo 站点配置（Blowfish 主题，浅色模式）
+# 主题：Blowfish（已内置于 themes/blowfish）
+# 写文章：hugo new post/我的新文章.md → hugo server -D 预览 → git push
+# =============================================================================
+
+theme = "blowfish"
+
+# 自定义域名。换域名时改这里 + static/CNAME 两处。
+baseURL = "https://www.sshuo.cc/"
+title = "松鼠A的博客"
+
+defaultContentLanguage = "zh-cn"
+locale = "zh-cn"
+timeZone = "Asia/Shanghai"
+hasCJKLanguage = true
+enableRobotsTXT = true
+enableEmoji = true
+summaryLength = 30
+
+[pagination]
+  pagerSize = 10
+
+# 新文章默认地址：/年/月/日/文件名/（旧文章在各自 front matter 里用 url 固定）
+[permalinks]
+  post = "/:year/:month/:day/:slug/"
+
+# 全站搜索需要 home 的 JSON 输出
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[related]
+  threshold = 0
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
+[imaging]
+  anchor = "Center"

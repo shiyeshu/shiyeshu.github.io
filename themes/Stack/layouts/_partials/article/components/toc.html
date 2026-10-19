@@ -1,6 +1,0 @@
-{{/* Remove <nav id="TableOfContents"> and </nav> from .TableOfContents */}}
-{{ $toc := .TableOfContents }}
-{{ $toc = replace $toc "<nav id=\"TableOfContents\">" "" }}
-{{ $toc = replace $toc "</nav>" "" }}
-
-{{ return $toc }}

@@ -1,0 +1,112 @@
+# =============================================================================
+# Blowfish 主题参数（浅色方案）
+# =============================================================================
+
+colorScheme = "ocean"
+defaultAppearance = "light"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+enableStructuredBreadcrumbs = true
+enableA11y = false
+replyByEmail = false
+
+mainSections = ["post"]
+
+highlightCurrentMenuArea = true
+smartTOC = true
+smartTOCHideUnfocusedChildren = false
+fingerprintAlgorithm = "sha512"
+
+[header]
+  layout = "floating"
+  mobileMenuStyle = "dropdown"
+
+[footer]
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[homepage]
+  layout = "profile"
+  showRecent = true
+  showRecentItems = 9
+  showMoreLink = true
+  showMoreLinkDest = "/post/"
+  cardView = true
+  cardViewScreenWidth = false
+
+[article]
+  showDate = true
+  showViews = false
+  showLikes = false
+  showDateOnlyInArticle = false
+  showDateUpdated = true
+  showAuthor = true
+  showHero = false
+  showBreadcrumbs = true
+  showDraftLabel = false
+  showEdit = false
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showReadingProgress = true
+  showTableOfContents = true
+  showRelatedContent = true
+  relatedContentLimit = 3
+  showTaxonomies = true
+  showWordCount = true
+  showAuthorsBadges = false
+  sharingLinks = []
+  showZenMode = false
+  # 文章底部评论区（配合 layouts/partials/comments.html 的 Valine）
+  showComments = true
+
+[list]
+  showHero = false
+  layoutBackgroundHeaderSpace = false
+  showBreadcrumbs = false
+  showSummary = true
+  showViews = false
+  showLikes = false
+  showTableOfContents = false
+  showCards = true
+  orderByWeight = false
+  groupByYear = true
+  cardView = true
+  cardViewScreenWidth = false
+  constrainItemsWidth = false
+  featureImageHover = false
+
+[taxonomy]
+  showTermCount = true
+  showHero = false
+  showBreadcrumbs = false
+  showViews = false
+  showLikes = false
+  showTableOfContents = false
+  cardView = false
+
+[term]
+  showHero = false
+  showBreadcrumbs = false
+  showViews = false
+  showLikes = false
+  showTableOfContents = true
+  groupByYear = false
+  cardView = true
+  cardViewScreenWidth = false
+
+# 旧站 Valine（LeanCloud）评论，按文章路径关联历史评论
+[comments.valine]
+  appId = "9eOpXqTm3RKUGkGWwu9956zo-gzGzoHsz"
+  appKey = "Yuw3K8zBr35sjiopdKHiM7AH"
+  # 新版 Valine 默认域名已失效，必须显式指定这个可用端点
+  serverURLs = "https://avoscloud.com"
+  visitor = true
+  recordIP = false
+  enableQQ = true

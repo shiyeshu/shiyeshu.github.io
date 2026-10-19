@@ -1,0 +1,28 @@
+# -- 主导航 --
+
+[[main]]
+  name = "文章"
+  pageRef = "post"
+  weight = 10
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 20
+
+[[main]]
+  name = "友链"
+  url = "/friends/"
+  weight = 30
+
+[[main]]
+  name = "关于"
+  url = "/about/me.html"
+  weight = 40
+
+# -- 页脚导航 --
+
+[[footer]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 10

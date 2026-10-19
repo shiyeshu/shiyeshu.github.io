@@ -36,7 +36,7 @@ def main() -> int:
     site = Path(args.site)
     public = Path(args.public)
 
-    posts = load_posts(site / "content" / "post")
+    posts = [x for x in load_posts(site / "content" / "post") if not x["file"].name.startswith("_")]
     print(f"发现文章: {len(posts)}")
 
     errors = []
@@ -56,7 +56,8 @@ def main() -> int:
         if want_imgs and got_imgs < want_imgs:
             errors.append(f"{p['file'].name}: 图片 {want_imgs} -> {got_imgs}")
         # 代码块
-        want_code = p["body"].count("```") // 2
+        fence_lines = [l for l in p["body"].splitlines() if l.strip().startswith("```")]
+        want_code = len(fence_lines) // 2
         got_code = len(re.findall(r"<pre", html))
         if want_code and got_code < want_code:
             errors.append(f"{p['file'].name}: 代码块 {want_code} -> {got_code}")

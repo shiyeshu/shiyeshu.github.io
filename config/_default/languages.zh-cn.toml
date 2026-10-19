@@ -1,0 +1,21 @@
+locale = "zh-cn"
+label = "简体中文"
+weight = 1
+title = "松鼠A的博客"
+hasCJKLanguage = true
+
+[params]
+  displayName = "简体中文"
+  isoCode = "zh-cn"
+  rtl = false
+  dateFormat = "2006-01-02"
+  description = "松鼠A的博客：安全研究、渗透测试与折腾记录。"
+
+[params.author]
+  name = "sshuo"
+  image = "img/avatar.jpg"
+  headline = "安全研究 / 渗透测试 / 折腾记录"
+  bio = "松鼠A（sshuo），安全研究者。记录渗透测试、安全研究与折腾日常。"
+  links = [
+    { github = "https://github.com/shiyeshu" },
+  ]

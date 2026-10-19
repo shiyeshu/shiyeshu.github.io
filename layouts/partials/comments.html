@@ -1,0 +1,28 @@
+{{- /* Valine 评论（沿用旧站 LeanCloud 应用，按文章路径关联历史评论） */ -}}
+{{- with .Site.Params.comments.valine -}}
+<div id="vcomments" class="pt-3"></div>
+
+<style>
+  #vcomments .vwrap .vheader .vinput,
+  #vcomments .vwrap .vedit .veditor { color: rgb(var(--color-neutral-800)); }
+  :root.dark #vcomments .vwrap .vheader .vinput,
+  :root.dark #vcomments .vwrap .vedit .veditor { color: rgb(var(--color-neutral-200)); }
+</style>
+
+<script src="{{ "js/valine.min.js" | relURL }}"></script>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: '{{ .appId }}',
+    appKey: '{{ .appKey }}',
+    serverURLs: '{{ .serverURLs }}',
+    path: window.location.pathname,
+    visitor: {{ if isset . "visitor" }}{{ .visitor }}{{ else }}true{{ end }},
+    recordIP: {{ if isset . "recordIP" }}{{ .recordIP }}{{ else }}false{{ end }},
+    enableQQ: {{ if isset . "enableQQ" }}{{ .enableQQ }}{{ else }}true{{ end }},
+    pageSize: 10,
+    lang: 'zh-cn',
+    placeholder: '欢迎交流……'
+  });
+</script>
+{{- end -}}

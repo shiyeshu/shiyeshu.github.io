@@ -1,0 +1,134 @@
+{{ $disableImageOptimization := site.Store.Get "disableImageOptimization" }}
+
+{{ $useDefault := false }}
+{{ $featured := "" }}
+{{ $featuredURL := "" }}
+{{ with partial "functions/feature-image.html" . }}
+  {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+    {{ if site.Params.hotlinkFeatureImage }}
+      {{ $featuredURL = . }}
+    {{ else }}
+      {{ $featured = resources.GetRemote . }}
+    {{ end }}
+  {{ else }}
+    {{ $featured = page.Resources.Get . }}
+    {{ if not $featured }}
+      {{ $featured = resources.Get . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if not (or $featured $featuredURL) }}
+  {{ $images := .Resources.ByType "image" }}
+  {{ range slice "*background*" "*feature*" "*cover*" "*thumbnail*" }}
+    {{ if not $featured }}{{ $featured = $images.GetMatch . }}{{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* When the site-wide background canvas is active it already renders the
+  default background image, so only fall back to it here when disabled. */}}
+{{ if and (not (or $featured $featuredURL)) (not (site.Params.backgroundCanvas | default false)) }}
+  {{ $default := site.Store.Get "defaultBackgroundImage" }}
+  {{ if $default.url }}
+    {{ $featuredURL = $default.url }}
+    {{ $useDefault = true }}
+  {{ else if $default.obj }}
+    {{ $featured = $default.obj }}
+    {{ $useDefault = true }}
+  {{ end }}
+{{ end }}
+
+{{/* generate image URL if not hotlink */}}
+{{ if not $featuredURL }}
+  {{ with $featured }}
+    {{ $featuredURL = .RelPermalink }}
+    {{ if not (or $disableImageOptimization (eq .MediaType.SubType "svg")) }}
+      {{ $size := site.Store.Get "backgroundImageWidth" }}
+      {{ $featuredURL = (partial "functions/resize.html" (dict "resource" . "spec" $size)).RelPermalink }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $scope := .Scratch.Get "scope" }}
+{{ $shouldBlur := $.Params.layoutBackgroundBlur | default (or
+  (and ($.Site.Params.article.layoutBackgroundBlur | default true) (eq $scope "single"))
+  (and ($.Site.Params.list.layoutBackgroundBlur | default true) (eq $scope "list"))
+  (and ($.Site.Params.taxonomy.layoutBackgroundBlur | default true) (eq $scope "terms"))
+  (and ($.Site.Params.term.layoutBackgroundBlur | default true) (eq $scope "term"))
+  )
+}}
+{{ $shouldAddHeaderSpace := $.Params.layoutBackgroundHeaderSpace | default (or
+  (and ($.Site.Params.article.layoutBackgroundHeaderSpace | default true) (eq $scope "single"))
+  (and ($.Site.Params.list.layoutBackgroundHeaderSpace | default true) (eq $scope "list"))
+  (and ($.Site.Params.taxonomy.layoutBackgroundHeaderSpace | default true) (eq $scope "terms"))
+  (and ($.Site.Params.term.layoutBackgroundHeaderSpace | default true) (eq $scope "term"))
+  )
+}}
+{{ $siteBlurStyle := "fade" }}
+{{ if eq $scope "single" }}
+  {{ $siteBlurStyle = $.Site.Params.article.layoutBackgroundBlurStyle | default "fade" }}
+{{ else if eq $scope "list" }}
+  {{ $siteBlurStyle = $.Site.Params.list.layoutBackgroundBlurStyle | default "fade" }}
+{{ else if eq $scope "terms" }}
+  {{ $siteBlurStyle = $.Site.Params.taxonomy.layoutBackgroundBlurStyle | default "fade" }}
+{{ else if eq $scope "term" }}
+  {{ $siteBlurStyle = $.Site.Params.term.layoutBackgroundBlurStyle | default "fade" }}
+{{ end }}
+{{ $blurStyle := $.Params.layoutBackgroundBlurStyle | default $siteBlurStyle }}
+{{ $isClassic := eq $blurStyle "classic" }}
+
+{{- with $featuredURL -}}
+  {{ if $shouldAddHeaderSpace | default true }}
+    <div id="hero" class="h-[150px] md:h-[200px]"></div>
+  {{ end }}
+  <div
+    id="hero-background"
+    class="{{ if not $isClassic }}hero-canvas-fade {{ end }}fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom">
+    {{ $style := "" }}
+    {{ $defaultPosition := cond $useDefault site.Params.imagePosition false }}
+    {{ with $.Params.imagePosition | default $defaultPosition }}
+      {{ $style = printf "object-position: %s;" . }}
+    {{ end }}
+    <img
+      id="background-image"
+      src="{{ . }}"
+      role="presentation"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover"
+      {{ if $style }}style="{{ $style | safeCSS }}"{{ end }} />
+    {{ if $isClassic }}
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-neutral to-transparent mix-blend-normal dark:from-neutral-800"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-t from-neutral to-neutral-100 opacity-60 mix-blend-normal dark:from-neutral-800 dark:to-neutral-800"></div>
+    {{ else }}
+      <div class="absolute inset-0 bg-neutral/60 dark:bg-neutral-800/50"></div>
+    {{ end }}
+  </div>
+
+  {{ if $shouldBlur | default false }}
+    {{ if $isClassic }}
+      <div
+        id="background-blur"
+        class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-xl bg-neutral-100/75 dark:bg-neutral-800/60"></div>
+      {{ $backgroundBlur := resources.Get "js/background-blur.js" }}
+      {{ $backgroundBlur = $backgroundBlur | resources.Minify | resources.Fingerprint ($.Site.Params.fingerprintAlgorithm | default "sha512") }}
+      <script
+        type="text/javascript"
+        src="{{ $backgroundBlur.RelPermalink }}"
+        integrity="{{ $backgroundBlur.Data.Integrity }}"
+        data-blur-id="background-blur"></script>
+    {{ else }}
+      {{ $heroFade := resources.Get "js/hero-scroll-fade.js" }}
+      {{ $heroFade = $heroFade | resources.Minify | resources.Fingerprint ($.Site.Params.fingerprintAlgorithm | default "sha512") }}
+      <script
+        type="text/javascript"
+        src="{{ $heroFade.RelPermalink }}"
+        integrity="{{ $heroFade.Data.Integrity }}"
+        data-hero-id="hero-background"
+        data-fade-distance="500"></script>
+    {{ end }}
+  {{ end }}
+{{- end -}}

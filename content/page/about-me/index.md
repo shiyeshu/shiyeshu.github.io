@@ -8,11 +8,6 @@ slug: "about-me"
 author: sshuo
 source: html-legacy
 commentsPath: "/about/me.html"
-menu:
-  main:
-    weight: -70
-    params:
-      icon: user
 ---
 
 ## About me

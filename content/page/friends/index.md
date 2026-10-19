@@ -8,11 +8,6 @@ slug: "friends"
 author: sshuo
 source: html-legacy
 commentsPath: "/friends/"
-menu:
-  main:
-    weight: -80
-    params:
-      icon: link
 ---
 
 ## 友情链接
