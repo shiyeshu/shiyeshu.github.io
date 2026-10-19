@@ -1,9 +1,10 @@
 name: Deploy Hugo site to GitHub Pages
 
-# 触发条件：推送到 main 分支，或在 Actions 页面手动运行
+# 触发条件：当前 GitHub Pages 使用 gh-pages 分支部署（GitHub Actions 故障期间的
+# 应急方案），所以这里暂时只保留手动触发，避免每次 push 都产生一次会失败的部署。
+# 等 GitHub Actions 恢复并把 Pages 切回 GitHub Actions 模式后，把下面的
+# `push: branches: [main]` 恢复即可。
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 # 允许写入 Pages，并读取仓库（用于 git info）

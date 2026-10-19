@@ -87,19 +87,50 @@ git push
 
 ## 四、部署（GitHub Pages）
 
-### 首次切换（只需做一次）
+**站点已上线：<https://www.sshuo.cc>**（2026-10-20）
 
-1. **备份旧站**：仓库 **Branches** 里新建 `legacy-hexo-2022` 指向旧的 `master`，不要删旧提交。
-2. 把本目录内容推到仓库 **`main`** 分支。
-3. 仓库 **Settings → Pages**：
-   - **Source** 选 **GitHub Actions**
-   - **Custom domain** 填 `www.sshuo.cc`，勾选 **Enforce HTTPS**
-4. 推送后到 **Actions** 看 `Deploy Hugo site to GitHub Pages` 是否成功。
-5. DNS 不用动（`www` 的 CNAME 仍指向 `shiyeshu.github.io`）。
+### 当前模式：gh-pages 分支 + 发布脚本
 
-### 日常发布
+2026-10-19 晚 GitHub Actions 出现平台故障（Actions/Pages 均为 degraded），构建任务长时间排队，
+因此 Pages 暂时切换为 **`gh-pages` 分支**部署：`gh-pages` 分支里放构建好的静态文件，
+`main` 分支放源码。Pages 设置：**Source = Deploy from a branch / `gh-pages` / (root)**，
+Custom domain = `www.sshuo.cc`。
 
-`git push` 即自动发布。手动重跑：**Actions → Deploy Hugo site to GitHub Pages → Run workflow**。
+**日常发布（当前模式）**：
+
+```powershell
+# 1. 写文章（见第一节）
+# 2. 构建并发布
+.\deploy.ps1
+```
+
+`deploy.ps1` 会：用 Hugo 构建 `public/` → 通过 git worktree 把产物提交到 `gh-pages` 分支 → 推送。
+约 1~2 分钟后线上更新（可在仓库 Deployments 或 Pages 设置页看构建状态）。
+
+> 如果本机访问 GitHub 需要代理（本机实测 `127.0.0.1:7890` 可用）：
+> ```powershell
+> git config --global http.proxy http://127.0.0.1:7890
+> ```
+> 发布完成后可 `git config --global --unset http.proxy` 取消。
+
+### 切回 GitHub Actions 自动部署（Actions 恢复后，推荐）
+
+1. 仓库 **Settings → Pages → Source** 改为 **GitHub Actions**
+2. 把 `.github/workflows/hugo.yml` 里的 `on:` 恢复成：
+   ```yaml
+   on:
+     push:
+       branches: [main]
+     workflow_dispatch:
+   ```
+3. 之后 `git push` 即自动构建发布，不再需要 `deploy.ps1`
+
+### 首次切换时做过的事（留档）
+
+1. 旧站备份：`master` 分支保留旧的 Hexo 成品，未删任何历史提交。
+2. 源码推到 **`main`** 分支；`gh-pages` 分支放构建产物。
+3. 仓库 **Settings → Pages**：Custom domain = `www.sshuo.cc`。
+4. DNS 不用动（`www` 的 CNAME 仍指向 `shiyeshu.github.io`，外层还有 Cloudflare 代理）。
 
 ---
 
