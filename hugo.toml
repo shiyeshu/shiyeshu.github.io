@@ -1,0 +1,114 @@
+# =============================================================================
+# 松鼠A的博客 —— Hugo 站点配置
+# 框架：Hugo（https://gohugo.io）  主题：Stack（已内置于 themes/Stack）
+# 写文章：hugo new post/我的新文章.md  然后 hugo server -D 预览
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# 基础设置
+# -----------------------------------------------------------------------------
+# 自定义域名。若以后换域名，改这里 + static/CNAME 两处。
+baseURL = "https://www.sshuo.cc/"
+title = "松鼠A的博客"
+theme = "Stack"
+
+# 语言：站点为简体中文
+defaultContentLanguage = "zh-cn"
+locale = "zh-cn"
+hasCJKLanguage = true
+timeZone = "Asia/Shanghai"
+
+# 版权信息（页脚 / SEO）。页脚会渲染成「© 2017 - 当前年份 松鼠A」
+copyright = "松鼠A"
+enableRobotsTXT = true
+enableEmoji = true
+
+# -----------------------------------------------------------------------------
+# 分页与链接格式
+# -----------------------------------------------------------------------------
+[pagination]
+  pagerSize = 10
+
+[permalinks]
+  # 新文章默认地址：/年/月/日/文件名/ （与旧站风格一致）
+  post = "/:year/:month/:day/:slug/"
+  page = "/:slug/"
+
+# -----------------------------------------------------------------------------
+# Markdown 渲染
+# -----------------------------------------------------------------------------
+[markup]
+  [markup.goldmark.renderer]
+    # 允许正文里出现原始 HTML（旧文章迁移过来的内容需要）
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = true
+  [markup.highlight]
+    noClasses = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    lineNumbersInTable = true
+
+# -----------------------------------------------------------------------------
+# 站点参数
+# -----------------------------------------------------------------------------
+[params]
+  mainSections = ["post"]
+  rssFullContent = true
+  favicon = "img/favicon.ico"
+  description = "松鼠A的博客：安全研究、渗透测试与折腾记录。"
+
+  [params.dateFormat]
+    published = "2006-01-02"
+    lastUpdated = "2006-01-02 15:04"
+
+  [params.sidebar]
+    emoji = "🐿️"
+    subtitle = "记录安全研究与折腾日常"
+    avatar = "img/avatar.jpg"
+
+  [params.footer]
+    since = 2017
+    customText = ""
+
+  [params.article]
+    toc = true            # 文章右侧目录
+    readingTime = true    # 预计阅读时间
+    # 文章底部版权声明（个人博客一般关掉）
+    [params.article.license]
+      enabled = false
+      default = ""
+
+  [params.colorScheme]
+    default = "auto"      # auto / light / dark
+    toggle = true
+
+  # 首页右侧小部件
+  [params.widgets]
+    homepage = [
+      { type = "search" },
+      { type = "archives", params = { limit = 8 } },
+    ]
+    page = [{ type = "toc" }]
+
+  # 评论：沿用旧站的 Valine（LeanCloud）配置，历史评论按文章路径关联
+  [params.comments]
+    enabled = true
+    provider = "valine"
+
+    [params.comments.valine]
+      # 旧站 LeanCloud 应用（数据仍然可读）。appId 为公开信息，可安全放在前端。
+      appId = "9eOpXqTm3RKUGkGWwu9956zo-gzGzoHsz"
+      appKey = "Yuw3K8zBr35sjiopdKHiM7AH"
+      # 注意：新版 Valine 默认域名已失效，必须显式指定这个可用端点
+      serverURLs = "https://avoscloud.com"
+      visitor = true
+      recordIP = false
+      enableQQ = true
+
+  [params.opengraph.twitter]
+    site = ""
+    card = "summary"

@@ -1,0 +1,38 @@
+{{- /* 站点级覆盖 Stack 主题的图片渲染钩子：
+   旧文章里有大量外链图片（其中 img.sshuo.cc 已失效），
+   主题默认会尝试下载远程图片取尺寸，既慢又会刷警告；
+   这里对外链直接用 <img>，本地图片仍走主题的响应式图片逻辑。 */ -}}
+{{- $dest := .Destination -}}
+{{- $isRemote := or (hasPrefix $dest "http://") (hasPrefix $dest "https://") -}}
+{{- $isData := hasPrefix $dest "data:" -}}
+
+{{- if or $isRemote $isData -}}
+  <img src="{{ $dest | safeURL }}" alt="{{ .PlainText | plainify }}" loading="lazy" decoding="async"{{ with .Title }} title="{{ . }}"{{ end }}>
+{{- else -}}
+  {{- $image := partial "helper/image" (dict "Resources" .Page.Resources "Image" .Destination "Context" .Page) -}}
+  {{- $alt := .PlainText | safeHTML -}}
+  {{- $title := .Title | markdownify -}}
+  {{- $galleryImage := and $image.Height $image.Width -}}
+  {{- $attributes := dict -}}
+  {{- if $galleryImage -}}
+    {{- $attributes = (dict
+        "data-flex-grow" (div (mul $image.Width 100) $image.Height)
+        "data-flex-basis" (printf "%dpx" (div (mul $image.Width 240) $image.Height))
+    ) -}}
+  {{- end -}}
+  {{ partial "helper/responsive-image" (dict
+      "Resource" $image.Resource
+      "Widths" (cond .Page.Site.Params.ImageProcessing.Content.Enabled .Page.Site.Params.ImageProcessing.Content.Widths nil)
+      "Attributes" (merge $attributes (dict
+          "src" $image.Permalink
+          "width" $image.Width
+          "height" $image.Height
+          "alt" $alt
+          "title" $title
+          "data-title-escaped" ($title | htmlEscape)
+          "class" (cond $galleryImage "gallery-image" "")
+          "loading" "lazy"
+          "sizes" "(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px"
+      ))
+  ) }}
+{{- end -}}
