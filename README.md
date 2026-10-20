@@ -143,6 +143,7 @@ Custom domain = `www.sshuo.cc`。
 | 顶部菜单 | `config/_default/menus.zh-cn.toml` |
 | 首页显示几篇、是否卡片 | `config/_default/params.toml` 的 `[homepage]` |
 | 文章页目录 / 相关文章 / 评论开关 | `[article]` 与 `[comments.valine]` |
+| 正文宽度 / 字号 / 行距 / 对齐方式 | `assets/css/custom.css` 顶部的 `--article-width`、`--article-font-size`、`--article-line-height` |
 | 新文章地址规则 | `config/_default/hugo.toml` 的 `[permalinks]` |
 | 每页文章数 | `[pagination] pagerSize` |
 | 404 页 | 覆盖 `layouts/404.html`（当前用主题默认） |
