@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>网络安全 on 松鼠A的博客</title>
+    <link>http://localhost:1313/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 网络安全 on 松鼠A的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2026 sshuo</copyright>
+    <lastBuildDate>Sun, 05 Nov 2023 00:45:13 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>从零到一学挖洞|xxl-job 2023远程命令执行漏洞分析记录</title>
+      <link>http://localhost:1313/2023/11/05/%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E5%AD%A6%E6%8C%96%E6%B4%9E-xxl-job-2023%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Sun, 05 Nov 2023 00:45:13 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2023/11/05/%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80%E5%AD%A6%E6%8C%96%E6%B4%9E-xxl-job-2023%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E8%AE%B0%E5%BD%95/</guid>
+      <description>&lt;p&gt;看到了微步的漏洞预警信息，于是想从零开始记录一下nday漏洞的复现过程。虽然这次涉及代码审计很少，但也算一个路径，就记录一下吧。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>一次hw中的小插曲--分析蓝队钓鱼木马的反制</title>
+      <link>http://localhost:1313/2023/06/28/%E4%B8%80%E6%AC%A1hw%E4%B8%AD%E7%9A%84%E5%B0%8F%E6%8F%92%E6%9B%B2--%E5%88%86%E6%9E%90%E8%93%9D%E9%98%9F%E9%92%93%E9%B1%BC%E6%9C%A8%E9%A9%AC%E7%9A%84%E5%8F%8D%E5%88%B6/</link>
+      <pubDate>Wed, 28 Jun 2023 20:59:58 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2023/06/28/%E4%B8%80%E6%AC%A1hw%E4%B8%AD%E7%9A%84%E5%B0%8F%E6%8F%92%E6%9B%B2--%E5%88%86%E6%9E%90%E8%93%9D%E9%98%9F%E9%92%93%E9%B1%BC%E6%9C%A8%E9%A9%AC%E7%9A%84%E5%8F%8D%E5%88%B6/</guid>
+      <description>&lt;p&gt;距离上次写文章已经有将近三个月了，实在是太忙。这三个月里大大小小大概打了有五六场hw。人是累的不行，但是也学到了很多东西。本来是有很多知识点和操作想写，但东西一多反而又不知道该写什么了。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>某省市HW随记</title>
+      <link>http://localhost:1313/2022/07/13/%E6%9F%90%E7%9C%81%E5%B8%82hw%E9%9A%8F%E8%AE%B0/%E6%9F%90%E7%9C%81%E5%B8%82hw%E9%9A%8F%E8%AE%B0/</link>
+      <pubDate>Wed, 13 Jul 2022 16:42:10 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2022/07/13/%E6%9F%90%E7%9C%81%E5%B8%82hw%E9%9A%8F%E8%AE%B0/%E6%9F%90%E7%9C%81%E5%B8%82hw%E9%9A%8F%E8%AE%B0/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;某省市HW随记&#xA;    &lt;div id=&#34;某省市hw随记&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;&#xA;    &#xA;    &lt;span&#xA;        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;&#xA;        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e6%9f%90%e7%9c%81%e5%b8%82hw%e9%9a%8f%e8%ae%b0&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;&#xA;    &lt;/span&gt;&#xA;    &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;前阵子去打了个小hw，遇到了一些东西，随手记一下。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>初探单域名单端口多服务web</title>
+      <link>http://localhost:1313/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/</link>
+      <pubDate>Fri, 13 Aug 2021 19:46:54 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/08/13/%E5%88%9D%E6%8E%A2%E5%8D%95%E5%9F%9F%E5%90%8D%E5%8D%95%E7%AB%AF%E5%8F%A3%E5%A4%9A%E6%9C%8D%E5%8A%A1web/</guid>
+      <description>&lt;p&gt;这阵子遇到好几次这么一种情况。一个域名，一个端口，但是存在不同后缀的文件。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>ATT&amp;CK实战系列-红队评估（一）靶场笔记</title>
+      <link>http://localhost:1313/2021/06/14/ATT&amp;CK%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%EF%BC%88%E4%B8%80%EF%BC%89%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 14 Jun 2021 00:00:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/06/14/ATT&amp;CK%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%EF%BC%88%E4%B8%80%EF%BC%89%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;ATT&amp;amp;CK实战系列-红队评估（一）靶场笔记&#xA;    &lt;div id=&#34;attck实战系列-红队评估一靶场笔记&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;&#xA;    &#xA;    &lt;span&#xA;        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;&#xA;        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#attck%e5%ae%9e%e6%88%98%e7%b3%bb%e5%88%97-%e7%ba%a2%e9%98%9f%e8%af%84%e4%bc%b0%e4%b8%80%e9%9d%b6%e5%9c%ba%e7%ac%94%e8%ae%b0&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;&#xA;    &lt;/span&gt;&#xA;    &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://vulnstack.qiyuanxuetang.net/vuln/detail/7/&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;靶场连接&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>ATT&amp;CK实战系列-红队评估（五）靶场笔记</title>
+      <link>http://localhost:1313/2021/06/12/ATT-CK%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%EF%BC%88%E4%BA%94%EF%BC%89%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0/ATT&amp;CK%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%EF%BC%88%E4%BA%94%EF%BC%89%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Sat, 12 Jun 2021 20:04:56 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/06/12/ATT-CK%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%EF%BC%88%E4%BA%94%EF%BC%89%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0/ATT&amp;CK%E5%AE%9E%E6%88%98%E7%B3%BB%E5%88%97-%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%EF%BC%88%E4%BA%94%EF%BC%89%E9%9D%B6%E5%9C%BA%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;ATT&amp;amp;CK实战系列-红队评估（五）靶场笔记&#xA;    &lt;div id=&#34;attck实战系列-红队评估五靶场笔记&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;&#xA;    &#xA;    &lt;span&#xA;        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;&#xA;        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#attck%e5%ae%9e%e6%88%98%e7%b3%bb%e5%88%97-%e7%ba%a2%e9%98%9f%e8%af%84%e4%bc%b0%e4%ba%94%e9%9d%b6%e5%9c%ba%e7%ac%94%e8%ae%b0&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;&#xA;    &lt;/span&gt;&#xA;    &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;内网相关不太熟，于是最近没事找了几个靶场练手，这里把过程记一下。也不算wp，只能算随手记吧，有不详之处各位自行琢磨，都没什么难度的。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>（丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件</title>
+      <link>http://localhost:1313/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 17 May 2021 00:00:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2021/05/17/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89%E5%89%91%E9%B1%BCBBS%E5%90%8E%E5%8F%B0XSS%E7%BB%84%E5%90%88%E6%8B%B3%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6/</guid>
+      <description>&lt;p&gt;本文章详细已丢失&lt;/p&gt;&#xA;&lt;p&gt;CNVD-2020-47676+CNVD-2020-47675&lt;br&gt;&#xA;一个是后台xss，一个是数据库备份文件未授权下载。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>（丢失文章）VMware-vCenter_poc</title>
+      <link>http://localhost:1313/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/</link>
+      <pubDate>Wed, 14 Oct 2020 00:00:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2020/10/14/%EF%BC%88%E4%B8%A2%E5%A4%B1%E6%96%87%E7%AB%A0%EF%BC%89VMware-vCenter_poc/</guid>
+      <description>&lt;p&gt;本文详细已丢失，只留了脚本&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/shiyeshu/VMware-vCenter_poc&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;github&lt;/a&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>初探基于windows主题的哈希传递攻击（更正:这玩意不算pth）</title>
+      <link>http://localhost:1313/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/</link>
+      <pubDate>Tue, 22 Sep 2020 17:43:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2020/09/22/%E5%88%9D%E6%8E%A2%E5%9F%BA%E4%BA%8Ewindows%E4%B8%BB%E9%A2%98%E7%9A%84%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BB/</guid>
+      <description>&lt;p&gt;近期看到嘶吼发的一篇文章&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img&#xA;    class=&#34;my-0 rounded-md&#34;&#xA;    loading=&#34;lazy&#34;&#xA;    decoding=&#34;async&#34;&#xA;    fetchpriority=&#34;low&#34;&#xA;    alt=&#34;&#34;&#xA;    src=&#34;http://localhost:1313/images/2020/09/1770731526.png&#34;&#xA;    &gt;&lt;/figure&gt;&#xA;&lt;p&gt;很感兴趣，于是决定试一试。根据文章中所说的信息进行了复现，记录一下复现过程。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>宝塔面板pma未授权访问验证POC</title>
+      <link>http://localhost:1313/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/</link>
+      <pubDate>Wed, 26 Aug 2020 09:29:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2020/08/26/%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BFpma%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E9%AA%8C%E8%AF%81POC/</guid>
+      <description>&lt;p&gt;宝塔2020/8/23–7.4.2版本验证poc py练手&lt;/p&gt;&#xA;&lt;p&gt;验证url暂时不支持例如 &lt;a href=&#34;http://www.baidu.com:123/&#34;  target=&#34;_blank&#34; rel=&#34;noreferrer&#34;&gt;www.baidu.com:123&lt;/a&gt; 这种&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>记burp使用的一些坑</title>
+      <link>http://localhost:1313/2020/06/08/%E8%AE%B0burp%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</link>
+      <pubDate>Mon, 08 Jun 2020 16:14:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2020/06/08/%E8%AE%B0burp%E4%BD%BF%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/</guid>
+      <description>&lt;p&gt;刚刚换了新电脑，重新安装一堆东西，装到burp的时候遇到了坑，在此记一下&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>记一次久草CMS审计</title>
+      <link>http://localhost:1313/2020/03/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B9%85%E8%8D%89CMS%E5%AE%A1%E8%AE%A1/</link>
+      <pubDate>Mon, 16 Mar 2020 20:10:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2020/03/16/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B9%85%E8%8D%89CMS%E5%AE%A1%E8%AE%A1/</guid>
+      <description>&lt;p&gt;最近隔离闲的无聊，实在没什么事情就开始想练练审计&lt;/p&gt;&#xA;&lt;p&gt;想了想因为一直都非常好奇h站的运行模式，于是目标就锁定在了h站的程序上。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>看我如何通过QQ嗅探对方 IP</title>
+      <link>http://localhost:1313/2020/03/04/%E7%9C%8B%E6%88%91%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87QQ%E5%97%85%E6%8E%A2%E5%AF%B9%E6%96%B9%20IP/</link>
+      <pubDate>Wed, 04 Mar 2020 20:13:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2020/03/04/%E7%9C%8B%E6%88%91%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87QQ%E5%97%85%E6%8E%A2%E5%AF%B9%E6%96%B9%20IP/</guid>
+      <description>&lt;p&gt;注意：本文仅是技术讲解，并非利用方法。技术虽好，请勿用于违法。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>phpstudy后门exp</title>
+      <link>http://localhost:1313/2019/09/25/phpstudy%E5%90%8E%E9%97%A8exp/</link>
+      <pubDate>Wed, 25 Sep 2019 16:41:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2019/09/25/phpstudy%E5%90%8E%E9%97%A8exp/</guid>
+      <description>&lt;p&gt;前阵子phpstudy爆了后门，网络安全周爆的呢&lt;/p&gt;&#xA;&lt;p&gt;影响版本phpstudy 2016版PHP5.4&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>一张渗透思维导图</title>
+      <link>http://localhost:1313/2018/08/06/%E4%B8%80%E5%BC%A0%E6%B8%97%E9%80%8F%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+      <pubDate>Mon, 06 Aug 2018 18:07:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2018/08/06/%E4%B8%80%E5%BC%A0%E6%B8%97%E9%80%8F%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:1313/images/2018/08/2018080610063170.png&#34; &gt;&lt;figure&gt;&lt;img&#xA;    class=&#34;my-0 rounded-md&#34;&#xA;    loading=&#34;lazy&#34;&#xA;    decoding=&#34;async&#34;&#xA;    fetchpriority=&#34;low&#34;&#xA;    alt=&#34;&#34;&#xA;    src=&#34;http://localhost:1313/images/2018/08/2018080610063170.png&#34;&#xA;    &gt;&lt;/figure&gt;&#xA;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;右击保存到本地可放大查看&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>又见卡死图，竟然一个“小黑点”就能干掉QQ？（首发FREEBUF）</title>
+      <link>http://localhost:1313/2018/05/17/%E5%8F%88%E8%A7%81%E5%8D%A1%E6%AD%BB%E5%9B%BE%EF%BC%8C%E7%AB%9F%E7%84%B6%E4%B8%80%E4%B8%AA%E2%80%9C%E5%B0%8F%E9%BB%91%E7%82%B9%E2%80%9D%E5%B0%B1%E8%83%BD%E5%B9%B2%E6%8E%89QQ%EF%BC%9F/</link>
+      <pubDate>Thu, 17 May 2018 15:46:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2018/05/17/%E5%8F%88%E8%A7%81%E5%8D%A1%E6%AD%BB%E5%9B%BE%EF%BC%8C%E7%AB%9F%E7%84%B6%E4%B8%80%E4%B8%AA%E2%80%9C%E5%B0%8F%E9%BB%91%E7%82%B9%E2%80%9D%E5%B0%B1%E8%83%BD%E5%B9%B2%E6%8E%89QQ%EF%BC%9F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;前一阵子QQ群里流行了一个东西，一段话加上一个黑点（表情），点击之后QQ就会卡死。&lt;/strong&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>怎么通过声音分析手机号码</title>
+      <link>http://localhost:1313/2017/07/21/%E6%80%8E%E4%B9%88%E9%80%9A%E8%BF%87%E5%A3%B0%E9%9F%B3%E5%88%86%E6%9E%90%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%A0%81/</link>
+      <pubDate>Fri, 21 Jul 2017 20:02:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2017/07/21/%E6%80%8E%E4%B9%88%E9%80%9A%E8%BF%87%E5%A3%B0%E9%9F%B3%E5%88%86%E6%9E%90%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%A0%81/</guid>
+      <description>&lt;p&gt;很久以前看到过个新闻，说是某大学生通过一段视频里的声音分析出了周鸿祎的手机号。一直以来都觉得非常酷炫，最近突然想起来于是动手复现一下。&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>分析一个“炸弹”恶意链接</title>
+      <link>http://localhost:1313/2017/07/19/%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E7%82%B8%E5%BC%B9%E2%80%9D%E6%81%B6%E6%84%8F%E9%93%BE%E6%8E%A5/</link>
+      <pubDate>Wed, 19 Jul 2017 19:20:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2017/07/19/%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E7%82%B8%E5%BC%B9%E2%80%9D%E6%81%B6%E6%84%8F%E9%93%BE%E6%8E%A5/</guid>
+      <description>&lt;h2 class=&#34;relative group&#34;&gt;事件起因&#xA;    &lt;div id=&#34;事件起因&#34; class=&#34;anchor&#34;&gt;&lt;/div&gt;&#xA;    &#xA;    &lt;span&#xA;        class=&#34;absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100 select-none&#34;&gt;&#xA;        &lt;a class=&#34;text-primary-300 dark:text-neutral-700 !no-underline&#34; href=&#34;#%e4%ba%8b%e4%bb%b6%e8%b5%b7%e5%9b%a0&#34; aria-label=&#34;锚点&#34;&gt;#&lt;/a&gt;&#xA;    &lt;/span&gt;&#xA;    &#xA;&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;这其实是一件很偶然的事情，前几天在某大佬群里看大佬装逼。突然一个平日不怎么冒泡的群友发了一条链接。本着“这群里都是好人 ”的想法我就天真的点了进去……这一点可闹大了。电脑猛地变卡直至完全不能动弹，无奈的我只能重启，重启过程中突然想起刚刚做的期末作业还没有保存 ……&lt;/strong&gt;&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
