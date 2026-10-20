@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2020/08/26/宝塔面板pma未授权访问验证POC/"
 categories: ["网络安全"]
+tags: ["漏洞复现", "Web安全", "Python"]
 ---
 
 宝塔2020/8/23–7.4.2版本验证poc py练手

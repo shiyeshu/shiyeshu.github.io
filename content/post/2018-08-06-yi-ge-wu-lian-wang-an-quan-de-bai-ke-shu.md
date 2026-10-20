@@ -8,7 +8,8 @@ slug: "yi-ge-wu-lian-wang-an-quan-de-bai-ke-shu"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/06/推荐一个物联网安全百科/"
-categories: ["日常随想"]
+categories: ["网络安全"]
+tags: ["网络安全", "物联网"]
 ---
 
 如题，一个物联网安全的百科书

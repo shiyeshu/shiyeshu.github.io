@@ -13,6 +13,7 @@
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import re
 import sys
@@ -24,6 +25,25 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+
+# ---------------------------------------------------------------- 可选依赖：Pillow
+# 没有 Pillow 也能跑：/api/upload 会优雅降级为「原图保存」。
+try:
+    from PIL import Image, ImageOps
+
+    PIL_AVAILABLE = True
+    PIL_VERSION = getattr(__import__('PIL'), '__version__', 'unknown')
+except Exception:  # pragma: no cover - 纯标准库环境
+    Image = None
+    ImageOps = None
+    PIL_AVAILABLE = False
+    PIL_VERSION = None
+
+# 图片压缩策略（默认值，可用请求头 X-Compress / query compress 关闭）
+COMPRESS_FORMAT = 'WEBP'
+COMPRESS_QUALITY = 82
+COMPRESS_MAX_EDGE = 1600       # 最长边超过该值时等比缩小
+COMPRESS_MIN_GAIN = 0.0        # 压缩后反而变大时是否仍用压缩结果（0 = 只要不更大就用）
 
 # ---------------------------------------------------------------- 路径与常量
 TOOL_ROOT = Path(__file__).resolve().parent
@@ -328,13 +348,121 @@ def sniff_ext(data: bytes, filename: str) -> str:
     return '.png'
 
 
-def save_image(data: bytes, filename: str, slug: str) -> dict:
+def parse_bool(value, default: bool = True) -> bool:
+    """'1/0'、'true/false'、'on/off' → bool；无法识别时返回 default。"""
+    if value is None:
+        return default
+    v = str(value).strip().lower()
+    if v in ('1', 'true', 'yes', 'on'):
+        return True
+    if v in ('0', 'false', 'no', 'off'):
+        return False
+    return default
+
+
+def image_info(data: bytes):
+    """Pillow 可用时返回 {width, height, animated}；否则 None。"""
+    if not PIL_AVAILABLE:
+        return None
+    try:
+        with Image.open(io.BytesIO(data)) as im:
+            return {
+                'width': im.size[0],
+                'height': im.size[1],
+                'animated': bool(getattr(im, 'is_animated', False)) and getattr(im, 'n_frames', 1) > 1,
+            }
+    except Exception:
+        return None
+
+
+def compress_image(data: bytes, filename: str):
+    """把图片压缩成 WebP（quality=82，最长边 >1600 等比缩小，保留透明，EXIF 方向纠正）。
+
+    返回 dict（含 data/format/width/height/animated/original_width/original_height）；
+    Pillow 不可用、SVG、动图、或解码失败时返回 None（调用方优雅降级为原图）。
+    """
+    if not PIL_AVAILABLE:
+        return None
+    ext = sniff_ext(data, filename)
+    if ext == '.svg':  # 矢量图不转位图
+        return None
+    try:
+        with Image.open(io.BytesIO(data)) as im:
+            is_animated = bool(getattr(im, 'is_animated', False)) and getattr(im, 'n_frames', 1) > 1
+            if is_animated:  # 动图转静态 WebP 会丢帧，保守起见不压缩
+                return None
+            im = ImageOps.exif_transpose(im)          # EXIF 方向纠正
+            orig_w, orig_h = im.size
+            longest = max(orig_w, orig_h)
+            if longest > COMPRESS_MAX_EDGE > 0:
+                scale = COMPRESS_MAX_EDGE / float(longest)
+                new_size = (max(1, round(orig_w * scale)), max(1, round(orig_h * scale)))
+                im = im.resize(new_size, Image.LANCZOS)
+            keep_alpha = (im.mode in ('RGBA', 'LA')) or (im.mode == 'P' and 'transparency' in im.info)
+            if keep_alpha:
+                im = im.convert('RGBA')
+                buf = io.BytesIO()
+                im.save(buf, format=COMPRESS_FORMAT, quality=COMPRESS_QUALITY, method=4, exact=True)
+            else:
+                if im.mode not in ('RGB', 'L'):
+                    im = im.convert('RGB')
+                buf = io.BytesIO()
+                im.save(buf, format=COMPRESS_FORMAT, quality=COMPRESS_QUALITY, method=4)
+            payload = buf.getvalue()
+            return {
+                'data': payload,
+                'format': COMPRESS_FORMAT.lower(),
+                'ext': '.webp',
+                'width': im.size[0],
+                'height': im.size[1],
+                'original_width': orig_w,
+                'original_height': orig_h,
+                'animated': False,
+            }
+    except Exception as exc:  # 解码失败/格式不支持 → 回退原图
+        sys.stderr.write('[compress] 压缩失败，回退原图：%s\n' % exc)
+        return None
+
+
+def save_image(data: bytes, filename: str, slug: str, compress: bool = True) -> dict:
     if not data:
         raise ValueError('图片为空')
     if len(data) > MAX_UPLOAD:
         raise ValueError('图片超过 20MB')
     slug = slugify(slug) or 'untitled'
+
+    original_size = len(data)
+    payload = data
     ext = sniff_ext(data, filename)
+    compressed = False
+    fmt = ext.lstrip('.')
+    width = height = None
+    note = ''
+
+    info = image_info(data)
+    if info:
+        width, height = info['width'], info['height']
+
+    if compress:
+        if not PIL_AVAILABLE:
+            note = '未安装 Pillow，已优雅降级为原图保存'
+        else:
+            result = compress_image(data, filename)
+            if result is None:
+                note = '该图不适合压缩（SVG/动图/解码失败），保留原图'
+            elif result['width'] is not None and len(result['data']) < original_size:
+                payload = result['data']
+                ext = result['ext']
+                fmt = result['format']
+                compressed = True
+                width, height = result['width'], result['height']
+            else:
+                note = '压缩后体积未变小，保留原图'
+    else:
+        note = '已按请求关闭压缩，保存原图'
+
+    final_size = len(payload)
+    saved_percent = round((original_size - final_size) / original_size * 100, 1) if original_size else 0.0
     folder = IMAGES_ROOT / slug
     folder.mkdir(parents=True, exist_ok=True)
     stamp = now_tz().strftime('%Y%m%d-%H%M%S')
@@ -346,7 +474,7 @@ def save_image(data: bytes, filename: str, slug: str) -> dict:
             break
         n += 1
     tmp = folder / (name + '.tmp')
-    tmp.write_bytes(data)
+    tmp.write_bytes(payload)
     tmp.replace(target)
     url_path = '/images/posts/%s/%s' % (urllib.parse.quote(slug), urllib.parse.quote(name))
     return {
@@ -356,7 +484,16 @@ def save_image(data: bytes, filename: str, slug: str) -> dict:
         'slug': slug,
         'path': str(target),
         'relative': str(target.relative_to(SITE_ROOT)).replace('\\', '/'),
-        'size': len(data),
+        # ---- 压缩相关字段 ----
+        'original_size': original_size,
+        'size': final_size,
+        'compressed': compressed,
+        'format': fmt,
+        'width': width,
+        'height': height,
+        'saved_percent': saved_percent,
+        'compression': ('webp' if compressed else ('off' if not compress else 'fallback')),
+        'note': note,
     }
 
 
@@ -386,6 +523,14 @@ class WriterHandler(BaseHTTPRequestHandler):
                 'images_root': str(IMAGES_ROOT),
                 'time': now_tz().strftime('%Y-%m-%d %H:%M:%S%z'),
                 'categories': list(CATEGORIES),
+                'compression': {
+                    'available': PIL_AVAILABLE,
+                    'pillow': PIL_VERSION,
+                    'format': COMPRESS_FORMAT.lower(),
+                    'quality': COMPRESS_QUALITY,
+                    'max_edge': COMPRESS_MAX_EDGE,
+                    'enabled_by_default': True,
+                },
             })
         return text_response(self, 'Not Found: %s' % path, 404)
 
@@ -458,7 +603,12 @@ class WriterHandler(BaseHTTPRequestHandler):
         data = self.rfile.read(length)
         filename = header_text(self, 'X-Filename', 'pasted.png')
         slug = header_text(self, 'X-Slug', 'untitled')
-        return json_response(self, save_image(data, filename, slug))
+        query = urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query)
+        # 优先级：请求头 X-Compress > query ?compress=0/1 > 默认开启
+        compress = parse_bool(self.headers.get('X-Compress'), None)
+        if compress is None:
+            compress = parse_bool((query.get('compress') or [None])[0], True)
+        return json_response(self, save_image(data, filename, slug, compress=compress))
 
     def handle_publish(self):
         """调用仓库根 deploy.ps1（会 git push），前端需二次确认。"""

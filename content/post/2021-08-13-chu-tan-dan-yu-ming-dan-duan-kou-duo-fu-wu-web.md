@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2021/08/13/初探单域名单端口多服务web/"
 categories: ["网络安全"]
+tags: ["Web安全", "运维"]
 ---
 
 这阵子遇到好几次这么一种情况。一个域名，一个端口，但是存在不同后缀的文件。

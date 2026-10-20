@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2018/07/14/php笔记--登陆验证和curl/"
 categories: ["开发项目"]
+tags: ["PHP", "Web安全"]
 ---
 
 ## 登录验证

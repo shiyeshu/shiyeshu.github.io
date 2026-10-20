@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2017/07/19/分析一个“炸弹”恶意链接/"
 categories: ["网络安全"]
+tags: ["恶意代码", "Web安全"]
 ---
 
 ## 事件起因

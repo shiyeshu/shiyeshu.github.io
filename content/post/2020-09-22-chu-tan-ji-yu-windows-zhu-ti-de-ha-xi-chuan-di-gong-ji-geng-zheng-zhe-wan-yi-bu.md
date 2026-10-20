@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2020/09/22/初探基于windows主题的哈希传递攻击/"
 categories: ["网络安全"]
+tags: ["内网渗透", "Windows"]
 ---
 
 近期看到嘶吼发的一篇文章

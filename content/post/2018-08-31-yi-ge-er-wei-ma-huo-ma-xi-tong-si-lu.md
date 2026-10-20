@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/31/一个二维码活码系统思路/"
 categories: ["开发项目"]
+tags: ["PHP", "工具开发"]
 ---
 
 习惯放图

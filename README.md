@@ -202,14 +202,17 @@ Blowfish 自带全站搜索：按 <kbd>Ctrl</kbd>+<kbd>K</kbd>（或点顶部放
 
 | 文件 | 作用 |
 | --- | --- |
-| `tools/writer/server.py` | 本地服务（Python 标准库，无第三方依赖），默认 `127.0.0.1:7311` |
+| `tools/writer/server.py` | 本地服务（Python 标准库；图片压缩可选依赖 Pillow），默认 `127.0.0.1:7311` |
 | `tools/writer/writer.html` + `assets/` | 编辑界面（左 Markdown / 右实时预览） |
 | `tools/writer/selftest.py` | 自测脚本（22 项：推荐/存图/保存/冲突处理） |
 | `writer.ps1` / `writer.cmd` | 一键启动并打开浏览器 |
 
 接口：`POST /api/suggest`（分类+标签推荐）、`POST /api/upload`（截图存图）、`POST /api/save`（写文章）、`POST /api/publish`（调用 `deploy.ps1` 构建发布）。
 
-图片默认存到 `static/images/posts/<文章标题>/`，文章里引用路径是 `/images/posts/<文章标题>/<时间戳>-序号.png`。
+图片默认存到 `static/images/posts/<文章标题>/`，文章里引用路径是 `/images/posts/<文章标题>/<时间戳>-序号.webp`。
+
+**图片自动压缩**：上传/粘贴的截图默认自动转成 WebP（quality 82，最长边超过 1600px 会等比缩小，保留透明、纠正 EXIF 方向），实测 472KB 截图 → 56KB（-88%）。网页右上角可关掉「自动压缩图片」；压缩依赖可选的 Pillow，没装时自动保存原图、功能不受影响。
+
 不想用网页版时，Typora + 上面的图片路径设置也能达到同样效果。
 
 ---

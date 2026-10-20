@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2019/09/25/phpstudy后门exp/"
 categories: ["网络安全"]
+tags: ["漏洞复现", "渗透测试"]
 ---
 
 前阵子phpstudy爆了后门，网络安全周爆的呢

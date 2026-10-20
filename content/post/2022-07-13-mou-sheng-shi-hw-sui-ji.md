@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2022/07/13/某省市hw随记/某省市hw随记/"
 categories: ["网络安全"]
+tags: ["HW", "内网渗透", "应急响应"]
 ---
 
 ## 某省市HW随记

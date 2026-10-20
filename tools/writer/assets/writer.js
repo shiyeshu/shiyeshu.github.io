@@ -12,6 +12,7 @@
     tagInput: $('#tag-input'),
     tagSuggest: $('#tag-suggest'),
     draft: $('#draft'),
+    compress: $('#compress'),
     editor: $('#editor'),
     editorWrap: $('#editor-wrap'),
     dropOverlay: $('#drop-overlay'),
@@ -33,6 +34,7 @@
   };
 
   var LS_KEY = 'sshuo-writer-draft-v1';
+  var LS_KEY_COMPRESS = 'sshuo-writer-compress-v1';
   var UPLOAD_PLACEHOLDER = '![图片上传中…]()';
 
   function pad2(n) { return String(n).padStart(2, '0'); }
@@ -255,17 +257,26 @@
     renderPreview();
     updateWordCount();
   }
+  function humanSize(bytes) {
+    if (bytes === null || bytes === undefined) return '?';
+    if (bytes >= 1024 * 1024) return (bytes / 1024 / 1024).toFixed(2) + 'MB';
+    if (bytes >= 1024) return (bytes / 1024).toFixed(1) + 'KB';
+    return bytes + 'B';
+  }
+
   function uploadImage(file) {
     state.uploading++;
     updateDirtyState();
     insertAtCursor(UPLOAD_PLACEHOLDER);
     var slug = slugify(els.title.value);
+    var compress = els.compress ? (els.compress.checked ? '1' : '0') : '1';
     return fetch('/api/upload', {
       method: 'POST',
       headers: {
         'Content-Type': file.type || 'application/octet-stream',
         'X-Filename': encodeURIComponent(file.name || 'pasted.png'),
-        'X-Slug': encodeURIComponent(slug)
+        'X-Slug': encodeURIComponent(slug),
+        'X-Compress': compress
       },
       body: file
     }).then(function (r) { return r.json(); }).then(function (data) {
@@ -274,7 +285,14 @@
       var md = '![' + (file.name && !/^image\./.test(file.name) ? file.name.replace(/\.[^.]+$/, '') : '截图') + '](' + data.url + ')';
       els.editor.value = els.editor.value.replace(UPLOAD_PLACEHOLDER, md);
       renderPreview();
-      setState('图片已保存：' + data.relative, 'ok');
+      var msg;
+      if (data.compressed) {
+        msg = '已压缩 ' + Math.round(data.saved_percent) + '%（原 ' + humanSize(data.original_size) +
+          ' → ' + humanSize(data.size) + '，' + data.format + ' ' + data.width + '×' + data.height + '）';
+      } else {
+        msg = '图片已保存（' + humanSize(data.size) + (data.note ? '，' + data.note : '，未压缩') + '）';
+      }
+      setState(msg + ' · ' + data.relative, 'ok');
       markDirty();
       updateDirtyState();
       return data;
@@ -399,9 +417,22 @@
     }
   });
 
+  /* ---------- 「自动压缩图片」开关（默认开，localStorage 记忆） ---------- */
+  function initCompressToggle() {
+    if (!els.compress) return;
+    var saved = null;
+    try { saved = localStorage.getItem(LS_KEY_COMPRESS); } catch (e) { /* ignore */ }
+    els.compress.checked = (saved === null) ? true : (saved !== '0');
+    els.compress.addEventListener('change', function () {
+      try { localStorage.setItem(LS_KEY_COMPRESS, els.compress.checked ? '1' : '0'); } catch (e) { /* ignore */ }
+      setState(els.compress.checked ? '已开启图片自动压缩（WebP）' : '已关闭图片自动压缩，将保存原图');
+    });
+  }
+
   /* ---------- 初始化 ---------- */
   function init() {
     els.date.value = today();
+    initCompressToggle();
     renderTags([]);
     renderPreview();
     updateWordCount();
@@ -409,7 +440,19 @@
     if (!restored) setState('就绪');
     fetch('/api/health').then(function (r) { return r.json(); }).then(function (h) {
       if (h && h.ok) {
-        setState('就绪 · 站点：' + h.site + ' · 已有文章 ' + h.posts + ' 篇');
+        var comp = h.compression || {};
+        var extra = '';
+        if (comp.available === false) {
+          extra = ' · ⚠ 未安装 Pillow，图片将不压缩';
+          if (els.compress) {
+            els.compress.disabled = true;
+            els.compress.checked = false;
+            els.compress.parentNode.title = '未安装 Pillow，图片将按原图保存（pip install pillow 后重启即可启用压缩）';
+          }
+        } else if (comp.available) {
+          extra = ' · 图片压缩：WebP q' + comp.quality + '/最长边 ' + comp.max_edge + 'px';
+        }
+        setState('就绪 · 站点：' + h.site + ' · 已有文章 ' + h.posts + ' 篇' + extra);
       }
     }).catch(function () { /* 忽略 */ });
     scheduleSuggest();

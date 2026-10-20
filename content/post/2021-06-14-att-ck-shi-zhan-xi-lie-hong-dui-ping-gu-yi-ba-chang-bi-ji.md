@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2021/06/14/ATT&CK实战系列-红队评估（一）靶场笔记/"
 categories: ["网络安全"]
+tags: ["靶场", "内网渗透", "域渗透"]
 ---
 
 ## ATT&CK实战系列-红队评估（一）靶场笔记

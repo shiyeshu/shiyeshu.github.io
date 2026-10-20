@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2021/05/18/2021-05关于站点的一些话/"
 categories: ["日常随想"]
+tags: ["博客", "纪念"]
 ---
 
 # RT

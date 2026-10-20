@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2020/06/08/记burp使用的一些坑/"
 categories: ["网络安全"]
+tags: ["渗透测试", "Web安全"]
 ---
 
 刚刚换了新电脑，重新安装一堆东西，装到burp的时候遇到了坑，在此记一下

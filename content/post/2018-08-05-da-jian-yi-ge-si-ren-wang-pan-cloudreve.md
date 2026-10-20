@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/05/搭建一个私人网盘--cloudreve/"
 categories: ["开发项目"]
+tags: ["建站", "服务器", "运维"]
 ---
 
 万恶的度盘限速实在厉害，用了插件突破结果账号被限速了。

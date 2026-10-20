@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""编写器自测脚本（纯标准库）。
+"""编写器自测脚本（纯标准库；压缩用例在装了 Pillow 时额外运行）。
 
 用法：python tools/writer/selftest.py [--port 7312]
 做什么：
   1. 起一个临时 server（默认 7312），检查页面/静态资源可访问；
   2. 实测 /api/suggest（安全类 / 开发类 / 日常类）；
-  3. 实测 /api/upload（1x1 PNG，落到 static/images/posts/... 并可回读）；
+  3. 实测 /api/upload（1x1 PNG 原图模式 + 大图 WebP 压缩 + 透明通道 + EXIF 方向 + 关闭压缩）；
   4. 实测 /api/save（front matter 字段 + 正文原样 + 同名冲突不覆盖）；
   5. 清理测试产生的文章/图片，失败时退出码非 0。
 """
@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import io
 import json
 import subprocess
 import sys
@@ -22,11 +23,20 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+try:  # 压缩用例需要 Pillow；没有则跳过压缩测试（服务端也会自动降级）
+    from PIL import Image
+
+    PIL_AVAILABLE = True
+except Exception:  # pragma: no cover
+    Image = None
+    PIL_AVAILABLE = False
+
 TOOL_ROOT = Path(__file__).resolve().parent
 SITE_ROOT = TOOL_ROOT.parents[1]
 POSTS_DIR = SITE_ROOT / 'content' / 'post'
 IMAGES_ROOT = SITE_ROOT / 'static' / 'images' / 'posts'
 SLUG = 'writer-selftest'
+COMPRESS_SLUG = 'writer-compress-selftest'
 
 PNG_1X1 = base64.b64decode(
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==')
@@ -55,6 +65,45 @@ def post_json(base, path, payload):
                    {'Content-Type': 'application/json'})
 
 
+def fmt_size(n):
+    if n is None:
+        return '?'
+    if n >= 1024 * 1024:
+        return '%.2fMB' % (n / 1024 / 1024)
+    if n >= 1024:
+        return '%.1fKB' % (n / 1024)
+    return '%dB' % n
+
+
+def make_noise_png(w, h):
+    """生成一张噪声 PNG（内容不可压，体积接近原始大小，适合验证压缩收益）。"""
+    im = Image.effect_noise((w, h), 64).convert('RGB')
+    buf = io.BytesIO()
+    im.save(buf, format='PNG')
+    return buf.getvalue()
+
+
+def make_alpha_png(w, h):
+    """生成带渐变 alpha 的 RGBA PNG（验证透明通道保留）。"""
+    rgb = Image.effect_noise((w, h), 48).convert('RGB')
+    alpha = Image.linear_gradient('L').resize((w, h))
+    im = rgb.convert('RGBA')
+    im.putalpha(alpha)
+    buf = io.BytesIO()
+    im.save(buf, format='PNG')
+    return buf.getvalue()
+
+
+def make_exif_jpeg(w, h):
+    """生成带 EXIF orientation=6 的 JPEG（验证方向纠正：宽高应互换）。"""
+    im = Image.effect_noise((w, h), 64).convert('RGB')
+    exif = Image.Exif()
+    exif[274] = 6  # Orientation = Rotate 90 CW
+    buf = io.BytesIO()
+    im.save(buf, format='JPEG', quality=90, exif=exif)
+    return buf.getvalue()
+
+
 def wait_ready(base, timeout=20):
     deadline = time.time() + timeout
     while time.time() < deadline:
@@ -74,7 +123,7 @@ def cleanup():
                 Path(f).unlink()
         except Exception as exc:
             print('  [warn] 清理文件失败：%s (%s)' % (f, exc))
-    for d in created_dirs:
+    for d in sorted(set(created_dirs)):
         try:
             p = Path(d)
             if p.exists():
@@ -138,22 +187,109 @@ def main():
         check('/api/suggest 日常类 → 日常随想', data.get('category') == '日常随想',
               'category=%s tags=%s' % (data.get('category'), data.get('tags')))
 
-        # 3. /api/upload
+        # 3. /api/upload（原图模式：X-Compress: 0，字节应与上传内容完全一致）
         st, body = request(base + '/api/upload', 'POST', PNG_1X1, {
             'Content-Type': 'image/png',
             'X-Filename': '%E8%87%AA%E6%B5%8B.png',
             'X-Slug': SLUG,
+            'X-Compress': '0',
         })
         up = json.loads(body)
         ok = st == 200 and up.get('ok') and up.get('url', '').startswith('/images/posts/%s/' % SLUG)
-        check('/api/upload 保存 1x1 PNG', ok, str(up.get('relative')))
+        check('/api/upload 保存 1x1 PNG（原图模式）', ok, str(up.get('relative')))
         if ok:
             created_files.append(up['path'])
             created_dirs.append(str(IMAGES_ROOT / SLUG))
+            check('原图模式：compressed=false、format=png、size=original_size',
+                  up.get('compressed') is False and up.get('format') == 'png'
+                  and up.get('size') == len(PNG_1X1) == up.get('original_size'))
             st, img = request(base + up['url'], raw=True)
             check('上传后的图片可通过 /images/... 回读', st == 200 and img == PNG_1X1,
                   '%d bytes' % len(img))
             check('图片落盘位置正确', Path(up['path']).exists() and 'static' in up['path'])
+
+        # 3b. /api/upload 自动压缩（Pillow 可用时；不可用时服务端降级、这里跳过）
+        if not PIL_AVAILABLE:
+            print('  [SKIP] 图片压缩测试（本机未安装 Pillow，服务端会优雅降级为原图）')
+        else:
+            big_png = make_noise_png(2000, 1200)
+            st, body = request(base + '/api/upload', 'POST', big_png, {
+                'Content-Type': 'image/png',
+                'X-Filename': 'big.png',
+                'X-Slug': COMPRESS_SLUG,
+                'X-Compress': '1',
+            })
+            res = json.loads(body)
+            ok_cmp = st == 200 and res.get('ok')
+            check('压缩：默认开启时 2000x1200 PNG → .webp',
+                  ok_cmp and res.get('compressed') is True and res.get('format') == 'webp'
+                  and res.get('url', '').endswith('.webp'))
+            if ok_cmp:
+                created_files.append(res['path'])
+                created_dirs.append(str(IMAGES_ROOT / COMPRESS_SLUG))
+                check('压缩：体积变小且 saved_percent 合理',
+                      res['size'] < res['original_size']
+                      and abs(res['saved_percent']
+                              - round((1 - res['size'] / res['original_size']) * 100, 1)) <= 0.2,
+                      '原 %s → %s（-%.1f%%）'
+                      % (fmt_size(res['original_size']), fmt_size(res['size']), res['saved_percent']))
+                check('压缩：最长边 2000→1600、等比 1200→960',
+                      res.get('width') == 1600 and res.get('height') == 960,
+                      '%sx%s' % (res.get('width'), res.get('height')))
+                check('压缩：返回 original_size/size/compressed/format/width/height/saved_percent 字段',
+                      all(k in res for k in ('original_size', 'size', 'compressed', 'format',
+                                             'width', 'height', 'saved_percent')))
+                st, raw = request(base + res['url'], raw=True)
+                check('压缩：WebP 可通过 /images/... 回读',
+                      st == 200 and raw[:4] == b'RIFF' and raw[8:12] == b'WEBP',
+                      '%d bytes' % len(raw))
+                with Image.open(io.BytesIO(raw)) as im:
+                    check('压缩：回读确认 WEBP 格式与 1600x960 尺寸',
+                          im.format == 'WEBP' and im.size == (1600, 960), '%s %s' % (im.format, im.size))
+
+            # 透明通道保留
+            alpha_png = make_alpha_png(2000, 1200)
+            st, body = request(base + '/api/upload', 'POST', alpha_png, {
+                'Content-Type': 'image/png', 'X-Filename': 'alpha.png',
+                'X-Slug': COMPRESS_SLUG, 'X-Compress': '1',
+            })
+            ares = json.loads(body)
+            check('压缩：RGBA 透明图 → .webp 且 compressed=true',
+                  st == 200 and ares.get('ok') and ares.get('compressed') is True)
+            if ares.get('ok'):
+                created_files.append(ares['path'])
+                st, raw = request(base + ares['url'], raw=True)
+                with Image.open(io.BytesIO(raw)) as im:
+                    has_alpha = (im.mode in ('RGBA', 'LA')) or ('A' in im.getbands())
+                    check('压缩：透明通道被保留', has_alpha, 'mode=%s' % im.mode)
+
+            # EXIF 方向纠正（orientation=6：原图 2400x1200 应纠正为 1200x2400，再缩到 800x1600）
+            exif_jpg = make_exif_jpeg(2400, 1200)
+            st, body = request(base + '/api/upload', 'POST', exif_jpg, {
+                'Content-Type': 'image/jpeg', 'X-Filename': 'exif.jpg',
+                'X-Slug': COMPRESS_SLUG, 'X-Compress': '1',
+            })
+            xres = json.loads(body)
+            check('压缩：EXIF orientation=6 已纠正（宽高互换后缩放到 800x1600）',
+                  st == 200 and xres.get('ok') and (xres.get('width'), xres.get('height')) == (800, 1600),
+                  '%sx%s' % (xres.get('width'), xres.get('height')))
+            if xres.get('ok'):
+                created_files.append(xres['path'])
+
+            # 关闭压缩（query 参数）
+            st, body = request(base + '/api/upload?compress=0', 'POST', big_png, {
+                'Content-Type': 'image/png', 'X-Filename': 'big.png',
+                'X-Slug': COMPRESS_SLUG,
+            })
+            off = json.loads(body)
+            check('compress=0：保存原图（.png、compressed=false、字节不变）',
+                  st == 200 and off.get('ok') and off.get('compressed') is False
+                  and off.get('format') == 'png' and off.get('size') == len(big_png)
+                  and off.get('url', '').endswith('.png'))
+            if off.get('ok'):
+                created_files.append(off['path'])
+                st, raw = request(base + off['url'], raw=True)
+                check('compress=0：回读字节与上传原图一致', raw == big_png, '%d bytes' % len(raw))
 
         # 4. /api/save（自动分类 + 自动标签 + front matter）
         today = time.strftime('%Y-%m-%d')

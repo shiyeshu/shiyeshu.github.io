@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2020/03/16/记一次久草CMS审计/"
 categories: ["网络安全"]
+tags: ["代码审计", "Web安全"]
 ---
 
 最近隔离闲的无聊，实在没什么事情就开始想练练审计

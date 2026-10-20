@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2018/09/15/博客一周年纪念/"
 categories: ["日常随想"]
+tags: ["博客", "纪念"]
 ---
 
 怎么说呢，这篇文章写得有点迟了。本来昨晚就该写的，结果咕咕咕战胜了理智。

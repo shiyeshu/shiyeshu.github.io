@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2021/05/17/（丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件/"
 categories: ["网络安全"]
+tags: ["漏洞复现", "Web安全"]
 ---
 
 本文章详细已丢失

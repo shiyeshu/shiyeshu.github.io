@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2018/09/10/WTS气泡通知插件/"
 categories: ["开发项目"]
+tags: ["工具开发", "PHP"]
 ---
 
 前阵子蚊子大佬写了个气泡通知，觉得很好玩。

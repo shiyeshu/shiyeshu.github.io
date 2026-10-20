@@ -9,6 +9,7 @@ author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/06/一张渗透思维导图/"
 categories: ["网络安全"]
+tags: ["渗透测试"]
 ---
 
 [![](/images/2018/08/2018080610063170.png)](/images/2018/08/2018080610063170.png)

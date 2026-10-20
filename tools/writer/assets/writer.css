@@ -163,6 +163,18 @@ select {
 }
 .suggest-badge:hover { background: var(--accent-soft); }
 .draft-toggle { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); cursor: pointer; }
+.compress-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  padding-left: 10px;
+  border-left: 1px solid var(--border);
+}
+.compress-toggle input { accent-color: var(--accent); }
+.compress-toggle:hover { color: var(--accent); }
 
 /* ---------- 分栏 ---------- */
 .split {
