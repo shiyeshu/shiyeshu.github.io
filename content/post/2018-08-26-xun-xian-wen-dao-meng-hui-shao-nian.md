@@ -8,6 +8,7 @@ slug: "xun-xian-wen-dao-meng-hui-shao-nian"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/26/寻仙问道，梦回少年/"
+categories: ["日常随想"]
 ---
 
 两天前老弟突然对我说想玩一个游戏，还贼兮兮的告诉我特别古老。还在想FC游戏时这家伙就说漏了嘴–《问道》。

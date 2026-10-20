@@ -36,6 +36,23 @@ git push
 
 > 不想敲命令：也可以在 GitHub 网页上进 `content/post/` → **Add file → Create new file**，粘贴带 front matter 的 Markdown 后提交（`draft` 记得写 `false`）。
 
+### 用写作器写文章（推荐）
+
+仓库自带一个本地网页版写作器，专治两件事：**截图自动存图**、**自动推荐分类和标签**。
+
+```powershell
+# 在仓库根目录双击 writer.cmd，或运行：
+.\writer.ps1
+# 浏览器会自动打开 http://127.0.0.1:7311
+```
+
+- 填标题、日期，选分类（默认「自动推荐」），标签会自动推荐、可手动增删
+- 正文区直接 `Ctrl+V` 粘贴截图 / 拖入图片 → 自动存到 `static/images/posts/<标题>/` 并插入 Markdown
+- 右侧实时预览；`Ctrl+S` 保存到 `content/post/`
+- 写完后点「保存文章」，再按正常流程发布（见第四节）
+
+> 也兼容 Typora：Typora 里设置「图片插入 → 复制到指定路径」，路径填 `static/images/posts` 即可，效果类似。
+
 ---
 
 ## 二、本地环境准备（换电脑时看）
@@ -66,7 +83,9 @@ git push
 │   └── markup.toml           #   Markdown / 代码高亮 / TOC 设置
 ├── content/
 │   ├── post/                 # ★ 所有文章（Markdown），_index.md 负责 /archives/ 跳转
-│   └── page/                 # 独立页面：关于、友链、搜索
+│   ├── page/                 # 独立页面：关于、友链、搜索
+│   ├── categories/           # 分类页标题（网络安全/开发项目/日常随想）
+│   └── tags/                 # 标签页标题
 ├── static/
 │   ├── images/               # 站点图片（旧站图片按年份在此）
 │   ├── js/valine.min.js      # 评论组件（本地化，不依赖 CDN）
@@ -79,6 +98,9 @@ git push
 ├── assets/
 │   └── css/custom.css        # 少量自定义样式（头像浅色描边）
 ├── scripts/verify_site.py    # 构建后自检：39 篇旧文 URL 是否都在
+├── tools/writer/             # 本地写作器（截图存图 + 自动分类/标签）
+├── writer.ps1 / writer.cmd   # 一键启动写作器
+├── deploy.ps1                # 构建并推送到 gh-pages
 ├── archetypes/post.md        # `hugo new post/xxx.md` 的模板
 └── .github/workflows/hugo.yml # 自动构建 + 发布到 GitHub Pages
 ```
@@ -148,6 +170,13 @@ Custom domain = `www.sshuo.cc`。
 | 每页文章数 | `[pagination] pagerSize` |
 | 404 页 | 覆盖 `layouts/404.html`（当前用主题默认） |
 
+### 文章分类
+
+站点有 3 个分类：**网络安全**、**开发项目**、**日常随想**（`/categories/`，顶部菜单「分类」）。
+新文章在 front matter 写 `categories: ["开发项目"]` 即可；想加新分类直接在任意文章里写一个新名字，Hugo 会自动生成对应分类页。
+
+分类页标题等文案在 `content/categories/_index.md`，标签页在 `content/tags/_index.md`。
+
 ### 搜索
 
 Blowfish 自带全站搜索：按 <kbd>Ctrl</kbd>+<kbd>K</kbd>（或点顶部放大镜）打开。索引由 Hugo 根据 `[outputs] home = ["HTML","RSS","JSON"]` 生成，不需要第三方服务。
@@ -169,12 +198,28 @@ Blowfish 自带全站搜索：按 <kbd>Ctrl</kbd>+<kbd>K</kbd>（或点顶部放
 
 ---
 
-## 六、主题切换记录
+## 六、写作器（tools/writer）
+
+| 文件 | 作用 |
+| --- | --- |
+| `tools/writer/server.py` | 本地服务（Python 标准库，无第三方依赖），默认 `127.0.0.1:7311` |
+| `tools/writer/writer.html` + `assets/` | 编辑界面（左 Markdown / 右实时预览） |
+| `tools/writer/selftest.py` | 自测脚本（22 项：推荐/存图/保存/冲突处理） |
+| `writer.ps1` / `writer.cmd` | 一键启动并打开浏览器 |
+
+接口：`POST /api/suggest`（分类+标签推荐）、`POST /api/upload`（截图存图）、`POST /api/save`（写文章）、`POST /api/publish`（调用 `deploy.ps1` 构建发布）。
+
+图片默认存到 `static/images/posts/<文章标题>/`，文章里引用路径是 `/images/posts/<文章标题>/<时间戳>-序号.png`。
+不想用网页版时，Typora + 上面的图片路径设置也能达到同样效果。
+
+---
+
+## 七、主题切换记录
 
 - 2022 年：Hexo 5.4 + Kratos:Rebirth
 - 2026-10：迁移到 Hugo（先 Stack，后根据预览对比选定 **Blowfish 浅色方案**）
 
-## 七、迁移说明（2026-10）
+## 八、迁移说明（2026-10）
 
 - 原站是 **Hexo 5.4.0 + Kratos:Rebirth 主题**，仓库里只有生成的 HTML，原始 Markdown 未找到（本机全盘检索 3.2 万个 md，0 命中）。
 - 旧站 35 篇文章、2 个独立页面由旧站 HTML **逐篇还原**为 Markdown，正文纯文本字符数与原文 100% 一致，代码块/图片/链接数量一致。

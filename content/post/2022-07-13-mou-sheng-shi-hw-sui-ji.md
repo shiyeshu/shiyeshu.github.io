@@ -7,7 +7,8 @@ url: "/2022/07/13/某省市hw随记/某省市hw随记/"
 slug: "mou-sheng-shi-hw-sui-ji"
 author: sshuo
 source: html-legacy
-commentsPath: "/2022/07/13/某省市hw随记/某省市hw随记/"
+commentsPath: "/2022/07/13/某省市hw随记/某省市hw随记/"
+categories: ["网络安全"]
 ---
 
 ## 某省市HW随记

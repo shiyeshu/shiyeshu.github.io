@@ -8,6 +8,7 @@ slug: "diu-shi-wen-zhang-vmware-vcenter-poc"
 author: sshuo
 source: html-legacy
 commentsPath: "/2020/10/14/（丢失文章）VMware-vCenter_poc/"
+categories: ["网络安全"]
 ---
 
 本文详细已丢失，只留了脚本

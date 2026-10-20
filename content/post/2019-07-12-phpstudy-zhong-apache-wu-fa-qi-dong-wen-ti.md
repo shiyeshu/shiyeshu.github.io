@@ -8,6 +8,7 @@ slug: "phpstudy-zhong-apache-wu-fa-qi-dong-wen-ti"
 author: sshuo
 source: html-legacy
 commentsPath: "/2019/07/12/phpstudy中Apache无法启动问题/"
+categories: ["开发项目"]
 ---
 
 使用phpstudy时其中Apache无法启动，点击启动后再次自动关闭

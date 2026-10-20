@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文章编写器 · 松鼠A的博客</title>
+<link rel="stylesheet" href="/assets/writer.css">
+</head>
+<body>
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">✍️</span>
+      <div class="brand-text">
+        <strong>文章编写器</strong>
+        <span class="brand-sub">松鼠A的博客 · 本地写作</span>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="hint">Ctrl+S 保存 · Ctrl+V 粘贴截图</span>
+      <button id="btn-save" class="btn btn-primary" title="Ctrl+S">保存文章</button>
+      <button id="btn-publish" class="btn btn-danger" title="会执行 deploy.ps1（构建并推送）">构建并发布</button>
+    </div>
+  </header>
+
+  <!-- 元信息 -->
+  <section class="meta">
+    <div class="meta-row">
+      <input id="title" class="title-input" type="text" placeholder="文章标题（文件名与 URL slug 会据此生成）" autocomplete="off">
+      <input id="date" class="date-input" type="date" title="发布日期">
+    </div>
+    <div class="meta-row meta-row-2">
+      <div class="field">
+        <label for="category">分类</label>
+        <select id="category">
+          <option value="auto">自动推荐</option>
+          <option value="网络安全">网络安全</option>
+          <option value="开发项目">开发项目</option>
+          <option value="日常随想">日常随想</option>
+        </select>
+        <button id="adopt-category" class="suggest-badge hidden" title="采纳推荐分类"></button>
+      </div>
+      <div class="field field-tags">
+        <label>标签</label>
+        <div id="tag-chips" class="chips"></div>
+        <input id="tag-input" class="tag-input" type="text" placeholder="输入标签后回车" autocomplete="off">
+        <div id="tag-suggest" class="chips chips-suggest"></div>
+      </div>
+      <label class="draft-toggle"><input id="draft" type="checkbox"> 存为草稿</label>
+    </div>
+  </section>
+
+  <!-- 编辑 + 预览 -->
+  <main class="split">
+    <section class="pane pane-editor">
+      <div class="pane-head">
+        <span class="pane-title">Markdown</span>
+        <span class="pane-sub">支持 Tab 缩进 · 拖拽/粘贴图片自动上传</span>
+      </div>
+      <div class="editor-wrap" id="editor-wrap">
+        <textarea id="editor" spellcheck="false" placeholder="在这里写正文…
+
+• Ctrl+V 可直接粘贴截图（自动保存到 static/images/posts/<slug>/ 并插入 Markdown）
+• 也可以把图片文件拖进来
+• 左侧写，右侧实时预览；Ctrl+S 保存"></textarea>
+        <div id="drop-overlay" class="drop-overlay hidden">松开鼠标：图片将自动上传并插入</div>
+      </div>
+    </section>
+    <section class="pane pane-preview">
+      <div class="pane-head">
+        <span class="pane-title">实时预览</span>
+        <span id="suggest-info" class="pane-sub">智能推荐：等待输入…</span>
+      </div>
+      <div id="preview" class="preview markdown-body"></div>
+    </section>
+  </main>
+
+  <!-- 状态栏 -->
+  <footer class="statusbar">
+    <div class="status-left">
+      <span id="stat-words">字数 0</span>
+      <span class="sep">·</span>
+      <span id="stat-file" title="保存后的文件路径">未保存</span>
+    </div>
+    <div class="status-mid">
+      <span id="stat-state" class="state">就绪</span>
+    </div>
+    <div class="status-right">
+      <span id="stat-preview" class="preview-hint">本地预览 http://localhost:1313</span>
+    </div>
+  </footer>
+
+  <script src="/assets/marked.min.js"></script>
+  <script src="/assets/writer.js"></script>
+</body>
+</html>

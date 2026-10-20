@@ -8,6 +8,7 @@ slug: "phpstudy-hou-men-exp"
 author: sshuo
 source: html-legacy
 commentsPath: "/2019/09/25/phpstudy后门exp/"
+categories: ["网络安全"]
 ---
 
 前阵子phpstudy爆了后门，网络安全周爆的呢

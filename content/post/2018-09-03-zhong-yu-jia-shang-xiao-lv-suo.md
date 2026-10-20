@@ -8,6 +8,7 @@ slug: "zhong-yu-jia-shang-xiao-lv-suo"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/09/03/终于加上小绿锁/"
+categories: ["开发项目"]
 ---
 
 前几天在某大佬群里水的时候大家无意间提到了小绿锁（https）都在说自己用了什么什么协议用的哪里哪里的证书。于是弱弱的问了一句：“大佬们都是上了锁吗？”

@@ -8,6 +8,7 @@ slug: "yi-ge-jian-yi-shou-quan-demo"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/20/一个简易授权demo/"
+categories: ["开发项目"]
 ---
 
 在页面中引用，比如：

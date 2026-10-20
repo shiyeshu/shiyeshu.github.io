@@ -8,6 +8,7 @@ slug: "kuai-su-da-jian-yi-ge-kms-fu-wu-qi"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/04/快速搭建一个KMS服务器/"
+categories: ["开发项目"]
 ---
 
 KMS用来激活 VOL 版本的 Windows 和 Office。经常能在网上看到有人提供的 KMS 服务器地址，那么你有没有想过自己也来搞一个这样的服务呢？最近看到了大佬的一键脚本[点击查看](https://teddysun.com/530.html)于是写篇文章水一下。以祭我这长了蜘蛛网的博客。

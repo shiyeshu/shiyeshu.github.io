@@ -6,6 +6,11 @@
   weight = 10
 
 [[main]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 15
+
+[[main]]
   name = "标签"
   pageRef = "tags"
   weight = 20

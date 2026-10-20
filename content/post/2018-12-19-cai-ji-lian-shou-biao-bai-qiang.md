@@ -8,6 +8,7 @@ slug: "cai-ji-lian-shou-biao-bai-qiang"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/12/19/菜鸡练手---表白墙/"
+categories: ["开发项目"]
 ---
 
 冬天了，又到了白色…..又到了恋爱的季节

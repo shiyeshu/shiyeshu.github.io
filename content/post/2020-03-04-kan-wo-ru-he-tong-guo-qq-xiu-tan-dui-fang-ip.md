@@ -8,6 +8,7 @@ slug: "kan-wo-ru-he-tong-guo-qq-xiu-tan-dui-fang-ip"
 author: sshuo
 source: html-legacy
 commentsPath: "/2020/03/04/看我如何通过QQ嗅探对方 IP/"
+categories: ["网络安全"]
 ---
 
 注意：本文仅是技术讲解，并非利用方法。技术虽好，请勿用于违法。

@@ -10,3 +10,10 @@ desktop.ini
 .idea/
 .vscode/
 *.swp
+
+# 写作器运行时文件
+tools/writer/.server*.log
+tools/writer/.server.pid
+tools/writer/__pycache__/
+tools/writer/.selftest-*
+

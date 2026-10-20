@@ -8,6 +8,7 @@ slug: "you-yuan-jiang-hu-jian"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/09/05/有缘，江湖见/"
+categories: ["日常随想"]
 ---
 
 来学校早了，整天闲得无聊。今天十二点半才醒来，无聊拿着手机看QQ。看到班级群里好像有什么消息，点开看了看….

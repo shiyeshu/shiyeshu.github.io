@@ -8,6 +8,7 @@ slug: "diu-shi-wen-zhang-jian-yu-bbs-hou-tai-xss-zu-he-quan-huo-qu-shu-ju-ku-wen
 author: sshuo
 source: html-legacy
 commentsPath: "/2021/05/17/（丢失文章）剑鱼BBS后台XSS组合拳获取数据库文件/"
+categories: ["网络安全"]
 ---
 
 本文章详细已丢失

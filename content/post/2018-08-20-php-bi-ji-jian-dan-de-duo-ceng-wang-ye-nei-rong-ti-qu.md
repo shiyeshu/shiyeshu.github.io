@@ -8,6 +8,7 @@ slug: "php-bi-ji-jian-dan-de-duo-ceng-wang-ye-nei-rong-ti-qu"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/08/20/php笔记---简单的多层网页内容提取/"
+categories: ["开发项目"]
 ---
 
 举例

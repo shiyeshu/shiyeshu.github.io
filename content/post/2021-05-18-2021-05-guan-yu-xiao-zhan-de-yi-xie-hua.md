@@ -8,6 +8,7 @@ slug: "2021-05-guan-yu-xiao-zhan-de-yi-xie-hua"
 author: sshuo
 source: html-legacy
 commentsPath: "/2021/05/18/2021-05关于站点的一些话/"
+categories: ["日常随想"]
 ---
 
 # RT

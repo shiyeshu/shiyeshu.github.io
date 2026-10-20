@@ -8,6 +8,7 @@ slug: "wan-zhuan-wallpaper-engine-bu-tong-de-xuan-ku-zi-shi"
 author: sshuo
 source: html-legacy
 commentsPath: "/2017/07/19/玩转Wallpaper Engine，不同的炫酷姿势/"
+categories: ["日常随想"]
 ---
 
 鼓捣过动态壁纸的小伙伴们大概都知道Wallpaper Engine这个玩意，steam售价18RMB的有钱人玩具。为什么说是有钱人的玩意呢？因为在XP时代（后来的版本我没研究过）我记得就可以通过系统自身功能达到动态桌面的实现，所以我觉得并不用花那些钱去搞这个。嘛~扯远了，今天给大家带来一个炫酷的Wallpaper Engine玩法。

@@ -8,6 +8,7 @@ slug: "you-jian-ka-si-tu-jing-ran-yi-ge-xiao-hei-dian-jiu-neng-gan-diao-qq-shou-
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/05/17/又见卡死图，竟然一个“小黑点”就能干掉QQ？/"
+categories: ["网络安全"]
 ---
 
 **前一阵子QQ群里流行了一个东西，一段话加上一个黑点（表情），点击之后QQ就会卡死。**

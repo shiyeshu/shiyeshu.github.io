@@ -8,6 +8,7 @@ slug: "php-bi-ji-deng-lu-yan-zheng-he-curl"
 author: sshuo
 source: html-legacy
 commentsPath: "/2018/07/14/php笔记--登陆验证和curl/"
+categories: ["开发项目"]
 ---
 
 ## 登录验证

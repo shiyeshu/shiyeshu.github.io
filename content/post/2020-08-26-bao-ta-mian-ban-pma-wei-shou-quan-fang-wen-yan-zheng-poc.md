@@ -8,6 +8,7 @@ slug: "bao-ta-mian-ban-pma-wei-shou-quan-fang-wen-yan-zheng-poc"
 author: sshuo
 source: html-legacy
 commentsPath: "/2020/08/26/宝塔面板pma未授权访问验证POC/"
+categories: ["网络安全"]
 ---
 
 宝塔2020/8/23–7.4.2版本验证poc py练手
