@@ -97,7 +97,7 @@ git push
 │   └── partials/favicons.html    # 站点图标
 ├── assets/
 │   └── css/custom.css        # 少量自定义样式（头像浅色描边）
-├── scripts/verify_site.py    # 构建后自检：39 篇旧文 URL 是否都在
+├── scripts/verify_site.py    # 构建后自检：全部文章 URL 是否都在
 ├── tools/writer/             # 本地写作器（截图存图 + 自动分类/标签）
 ├── writer.ps1 / writer.cmd   # 一键启动写作器
 ├── deploy.ps1                # 构建并推送到 gh-pages
@@ -192,7 +192,7 @@ Blowfish 自带全站搜索：按 <kbd>Ctrl</kbd>+<kbd>K</kbd>（或点顶部放
 
 ### 文章地址说明
 
-39 篇文章在 front matter 里用 `url:` 字段**逐篇固定**了原地址（例如 `/2021/08/13/初探单域名单端口多服务web/`），不会被新的 `permalinks` 规则改变——这样搜索引擎收录、外部链接、旧评论都不会失效。**不要删这些 `url:` 字段。**
+40 篇文章在 front matter 里用 `url:` 字段**逐篇固定**了原地址（例如 `/2021/08/13/初探单域名单端口多服务web/`），不会被新的 `permalinks` 规则改变——这样搜索引擎收录、外部链接、旧评论都不会失效。**不要删这些 `url:` 字段。**
 
 新文章不需要写 `url:`，走 `config/_default/hugo.toml` 的规则：`/年/月/日/文件名/`。
 
@@ -226,7 +226,7 @@ Blowfish 自带全站搜索：按 <kbd>Ctrl</kbd>+<kbd>K</kbd>（或点顶部放
 
 - 原站是 **Hexo 5.4.0 + Kratos:Rebirth 主题**，仓库里只有生成的 HTML，原始 Markdown 未找到（本机全盘检索 3.2 万个 md，0 命中）。
 - 旧站 35 篇文章、2 个独立页面由旧站 HTML **逐篇还原**为 Markdown，正文纯文本字符数与原文 100% 一致，代码块/图片/链接数量一致。
-- 另从 xLog 存档中找回 **4 篇旧站没有的 2023 年文章**（`content/post/2023-*.md`）和 74 张 IPFS 图片，站内文章共 **39 篇**。
+- 另从 xLog 存档中找回 **4 篇旧站没有的 2023 年文章**（`content/post/2023-*.md`）和 74 张 IPFS 图片，迁移完成时站内共 **39 篇**，后续新增文章累计 **40 篇**。
 - 331 张旧站本地图片原样搬过来（47 MB），另有 74 张 IPFS 图片在 `static/images/xlog/`（7.9 MB）。
 - 旧评论系统 Valine（LeanCloud）已接回，5 条历史评论按旧文章路径关联。
 - 已知损失：
