@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>蜜罐 on 松鼠A的博客</title>
+    <link>http://localhost:1313/tags/%E8%9C%9C%E7%BD%90/</link>
+    <description>Recent content in 蜜罐 on 松鼠A的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2026 sshuo</copyright>
+    <lastBuildDate>Fri, 30 Oct 2026 23:45:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E8%9C%9C%E7%BD%90/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>php2shell 在野利用机制与蜜罐捕获深度复盘</title>
+      <link>http://localhost:1313/2026/10/30/php2shell-honeypot-forensics/</link>
+      <pubDate>Fri, 30 Oct 2026 23:45:00 +0800</pubDate>
+      
+      <guid>http://localhost:1313/2026/10/30/php2shell-honeypot-forensics/</guid>
+      <description>&lt;p&gt;2026 年 10 月 21 日，PHP 官方正式发布了 8.5.12、8.4.27、8.3.36 与 8.2.35 多个分支的安全补丁，修复了被统称为 &lt;strong&gt;php2shell&lt;/strong&gt; 的两个关键漏洞：&lt;strong&gt;CVE-2026-109618&lt;/strong&gt; 与 &lt;strong&gt;CVE-2026-109619&lt;/strong&gt;（CVSS v4.0 9.2，影响自 PHP 5.4 引入上传进度跟踪机制以来的所有版本）。&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
