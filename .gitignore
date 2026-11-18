@@ -17,3 +17,6 @@ tools/writer/.server.pid
 tools/writer/__pycache__/
 tools/writer/.selftest-*
 
+# 发布脚本的临时 worktree
+.gh-pages-deploy/
+

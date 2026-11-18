@@ -98,11 +98,13 @@ git push
 ├── assets/
 │   └── css/custom.css        # 少量自定义样式（头像浅色描边）
 ├── scripts/verify_site.py    # 构建后自检：全部文章 URL 是否都在
-├── tools/writer/             # 本地写作器（截图存图 + 自动分类/标签）
+├── tools/writer/             # 本地写作器（截图存图 + 自动分类/标签 + 图片压缩）
+├── tools/pages_build.py      # 触发/查询 GitHub Pages 构建
 ├── writer.ps1 / writer.cmd   # 一键启动写作器
-├── deploy.ps1                # 构建并推送到 gh-pages
+├── deploy.ps1 / deploy.cmd   # 一键发布：构建 → 推 gh-pages → 触发 Pages
+├── AI-HANDOFF.md             # 给接手的人/AI 的完整交接说明
 ├── archetypes/post.md        # `hugo new post/xxx.md` 的模板
-└── .github/workflows/hugo.yml # 自动构建 + 发布到 GitHub Pages
+└── .github/workflows/hugo.yml # 自动构建工作流（当前改为手动触发）
 ```
 
 ---
@@ -121,19 +123,21 @@ Custom domain = `www.sshuo.cc`。
 **日常发布（当前模式）**：
 
 ```powershell
-# 1. 写文章（见第一节）
-# 2. 构建并发布
-.\deploy.ps1
+# 在仓库根目录（D:\dsh-workspace\blog-restore\blog）
+# 1. 写文章（见第一节：写作器或手写 Markdown）
+# 2. 一条命令发布
+.\deploy.cmd
 ```
 
-`deploy.ps1` 会：用 Hugo 构建 `public/` → 通过 git worktree 把产物提交到 `gh-pages` 分支 → 推送。
-约 1~2 分钟后线上更新（可在仓库 Deployments 或 Pages 设置页看构建状态）。
+`deploy.cmd`（内部调用 `deploy.ps1`）会：
+1. 用 Hugo 0.167 构建 `public/`；
+2. 通过 git worktree 把产物提交到 `gh-pages` 分支；
+3. 自动检测本地代理 `127.0.0.1:7890` 并用于 `git push`；
+4. 调 GitHub API 触发 Pages 构建并等待完成，最后打印线上地址。
 
-> 如果本机访问 GitHub 需要代理（本机实测 `127.0.0.1:7890` 可用）：
-> ```powershell
-> git config --global http.proxy http://127.0.0.1:7890
-> ```
-> 发布完成后可 `git config --global --unset http.proxy` 取消。
+常用参数：`.\deploy.cmd -DryRun`（只构建并查看差异，不推送）、`.\deploy.cmd -SkipBuild`（跳过构建）。
+
+> PowerShell 默认禁止直接运行 `.ps1`，所以统一用 `.cmd` 包装；不要直接双击 `.ps1`。
 
 ### 切回 GitHub Actions 自动部署（Actions 恢复后，推荐）
 
