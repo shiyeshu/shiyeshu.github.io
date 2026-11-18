@@ -19,6 +19,9 @@ import time
 import urllib.error
 import urllib.request
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 OWNER = "shiyeshu"
 REPO = "shiyeshu.github.io"
 API = "https://api.github.com"

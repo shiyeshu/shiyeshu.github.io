@@ -218,8 +218,8 @@ python scripts\verify_site.py --site . --public public
 | 文章数 | 40 |
 | 分类 | 网络安全 21 / 开发项目 13 / 日常随想 6 |
 | 唯一标签 | 35 |
-| main HEAD | `8639643` |
-| gh-pages HEAD | `4833e1d` |
+| main HEAD | 以 `git log --oneline -1` 为准 |
+| gh-pages HEAD | `78922cb`（交接时） |
 | 主题 | Blowfish，浅色，ocean 配色 |
 | 评论 | Valine（LeanCloud，5 条历史评论） |
 | 搜索 | Blowfish 内置 Fuse（Ctrl K） |

@@ -93,6 +93,7 @@ if (-not $pushed) {
 $py = Get-Command python -ErrorAction SilentlyContinue
 if ($py -and (Test-Path "tools\pages_build.py")) {
     Write-Host "==> 触发 GitHub Pages 构建" -ForegroundColor Cyan
+    $env:PYTHONIOENCODING = "utf-8"
     & python "tools\pages_build.py"
     if ($LASTEXITCODE -ne 0) {
         Write-Host "提示：脚本未能确认构建，请稍后手动查看 https://github.com/shiyeshu/shiyeshu.github.io/deployments" -ForegroundColor Yellow
